@@ -1,0 +1,24 @@
+========================================
+Ce Voyage Website — READ THIS FIRST
+========================================
+
+සිංහල:
+1. මේ ZIP එක Desktop එකට copy කරන්න
+2. Right-click → Extract All (Temp folder එකට නෙවෙයි)
+3. CeVoyage_Website folder එක open කරන්න
+4. index.html මත double-click කරන්න
+
+වැදගත්:
+- ZIP එක ඇතුළෙන්ම HTML open කරන්න එපා (UI awul වෙනවා)
+- styles.css සහ ce-voyage-logo.png එකම folder එකේ තියෙන්න ඕනේ
+
+English:
+1. Copy this ZIP to your Desktop
+2. Right-click → Extract All… (NOT open from inside the ZIP)
+3. Open the CeVoyage_Website folder
+4. Double-click index.html
+
+If the page looks broken (blue links, no logo):
+→ You opened the file from Temp/ZIP view. Extract fully to Desktop first.
+
+GitHub: upload ALL files including the places folder.
