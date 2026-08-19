@@ -307,3 +307,34 @@ README.md එකේ තියෙන plan එක:
 - [ ] Local preview එකේ හැම පිටුවක්ම බැලුවා
 - [ ] Sinhala/English/Tamil අකුරු කැඩිලා නෑ (UTF-8)
 - [ ] `git add . && git commit && git push`
+
+---
+
+## 8. 🌐 GitHub වලින් Website එක Host කරන විදිහ (දැනටමත් සෙට් වෙලා!)
+
+ඔයාගේ website එක දැනටමත් **LIVE** — මේ URL එකෙන්:
+
+**👉 https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/**
+
+### මේක වැඩ කරන්නේ මෙහෙමයි
+1. Repo එකේ **main** branch එකේ තියෙන files ටික GitHub Pages වලින් serve වෙනවා
+2. `index.html` → homepage, `guide.html` → Travel Guide, `places/ella.html` → Ella page, ආදිය
+3. Settings → Pages → **Branch: main / root** කියලා configure වෙලා තියෙනවා (පළවෙනි වතාවට ඔයා මේක කරලා තියෙනවා!)
+
+### Website එක Update කරන විදිහ (අනාගතයට)
+GitHub website එකේ repo එකට file එකක් upload කරපු ගමන් (හෝ push කරපු ගමන්) site එක **automatically** update වෙනවා (1–2 min).
+
+**සරලම ක්රමය — GitHub website එකෙන්:**
+1. github.com/ceylonvoyagesl-dotcom/Ce-Voyage-travel යන්න
+2. File එකක් open කරලා pencil ✏️ icon එක click කරන්න (edit)
+3. වෙනස් කරලා **Commit changes** click කරන්න (directly to main branch)
+4. විනාඩි 2කින් website එකේ වෙනස පේනවා
+
+**Photo upload කරන්න:** repo එකේ `images/` folder එකට යන්න → **Add file → Upload files** → photo එක දාන්න → Commit. ඊට පස්සේ `places-data.js` එකේ path එක update කරන්න (guide එකේ Section 2B බලන්න).
+
+### ඔයාගේම Domain එකක් (www.ce-voyage.com) දාන්න ඕන නම්
+1. Repo → **Settings → Pages → Custom domain** වලට `www.ce-voyage.com` දාන්න → Save
+2. GitHub කියන විදිහට domain registrar එකේ CNAME record එකක් add කරන්න
+3. HTTPS එක automatically enable වෙනවා
+
+> ⚠️ මතක තියාගන්න: GitHub Pages free version එකට ඕන repo එක **Public** වෙන්න. ඔයාගේ repo එක public ✓
