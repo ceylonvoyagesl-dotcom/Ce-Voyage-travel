@@ -15,8 +15,12 @@ CeVoyage_Website/
 ├── content.js              # FR / EN strings
 ├── app.js                  # UI logic, map, forms, i18n
 ├── place-app.js            # Place pages: video player + trip cart
+├── experiences-app.js      # Experience pages: linked place cards
 ├── places/                 # 22 destination pages + index
 ├── places-data.js          # All places, activities, images & videos
+├── experiences/            # 6 experience pages + index
+├── pdfs/                   # 10-Day Tour PDFs (EN + FR)
+├── tools/generate-pdfs.py  # PDF generator script
 ├── images/                 # Local photos (backgrounds + per-place folders)
 ├── ce-voyage-logo.webp     # Official logo (transparent) — header
 ├── ce-voyage-logo-lg.webp  # Larger logo — contact / footer
@@ -48,8 +52,8 @@ CeVoyage_Website/
 3. ✅ Travel Guide — `guide.html` (weather, transport, culture, money, visas)  
 4. ✅ Trip planner — `trip.html` (saved items → WhatsApp)  
 5. ✅ 10-Day Tour — `tours.html` (itinerary, booking form → WhatsApp, Print/Save as PDF)  
-6. ⬜ Experiences deep pages  
-7. ⬜ 10-Day Tour PDFs as downloadable files  
+6. ✅ Experiences — `experiences/` (heritage, wildlife, beaches, adventure, wellness, food)  
+7. ✅ 10-Day Tour PDFs — `pdfs/ce-voyage-10-day-classic-tour-en.pdf` + `-fr.pdf` (regenerate with `python3 tools/generate-pdfs.py`)  
 
 ## Brand
 

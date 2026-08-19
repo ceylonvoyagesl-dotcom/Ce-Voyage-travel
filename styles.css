@@ -2387,3 +2387,106 @@ h1, h2, h3, .cinema-title, .place-hero h1, .section-heading h2 {
 @media (max-width: 640px) {
   .form-2col { grid-template-columns: 1fr !important; }
 }
+
+/* ---- Experience pages ---- */
+.exp-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+.exp-card {
+  border-radius: 22px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid rgba(10, 61, 51, .08);
+  box-shadow: 0 12px 40px rgba(10, 61, 51, .08);
+  transition: transform .3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.exp-card:hover { transform: translateY(-4px); }
+.exp-card img { width: 100%; height: 170px; object-fit: cover; }
+.exp-card .body { padding: 16px 18px 18px; }
+.exp-card .body span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #14765d;
+}
+.exp-card h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  margin: 6px 0;
+  color: #0a3d33;
+}
+.exp-card p { font-size: 13px; color: #6e7773; line-height: 1.5; margin: 0; }
+
+/* Homepage: experiences section "view all" link */
+.experience-more { margin-top: 18px; }
+.experience-more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #d5aa56;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(213, 170, 86, .5);
+  padding-bottom: 3px;
+}
+.experience-more a:hover { color: #fff; border-color: #fff; }
+
+/* Experience index page */
+.exp-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 36px;
+}
+.exp-index-card {
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  min-height: 240px;
+  display: flex;
+  align-items: flex-end;
+  text-decoration: none;
+  color: #fff;
+  background: #0a3d33;
+  box-shadow: 0 16px 44px rgba(10, 61, 51, .18);
+  transition: transform .3s ease;
+}
+.exp-index-card:hover { transform: translateY(-5px); }
+.exp-index-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .75;
+  transition: opacity .3s ease;
+}
+.exp-index-card:hover img { opacity: .55; }
+.exp-index-card .overlay {
+  position: relative;
+  z-index: 1;
+  padding: 22px;
+  background: linear-gradient(transparent, rgba(4, 26, 22, .92));
+  width: 100%;
+}
+.exp-index-card .overlay span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #d5aa56;
+}
+.exp-index-card h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 25px;
+  margin: 6px 0 4px;
+}
+.exp-index-card p { font-size: 13.5px; opacity: .9; margin: 0; line-height: 1.5; }

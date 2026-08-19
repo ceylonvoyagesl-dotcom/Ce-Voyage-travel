@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0a3d33"/>
+<meta name="description" content="Ce Voyage — experiences in Sri Lanka: ancient heritage, wildlife safaris, beaches, adventure, wellness and food."/>
+<title>Experiences | Ce Voyage Sri Lanka</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="../styles.css" rel="stylesheet"/>
+<link href="../place.css" rel="stylesheet"/>
+</head>
+<body class="place-page">
+<header class="site-header v3-header place-header" id="siteHeader">
+  <div class="container nav-wrap v3-nav-wrap">
+    <a class="brand logo-brand v3-logo-brand" href="../index.html" aria-label="Ce Voyage home">
+      <img class="logo-image" src="../ce-voyage-logo.webp" alt="Ce Voyage"/>
+    </a>
+    <nav class="desktop-nav v3-desktop-nav" aria-label="Main">
+      <a href="../index.html#discover">Discover</a>
+      <a href="../places/index.html">Places</a>
+      <a href="../guide.html">Travel Guide</a>
+      <a href="../tours.html">10-Day Tours</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-trip-link" href="../trip.html">My Trip <span class="trip-badge" data-trip-badge hidden>0</span></a>
+      <a class="v3-header-cta" href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<section class="place-hero" id="expIndexTop">
+  <div class="place-hero-bg" style="background-image:url('../images/bg-mountains.jpg')"></div>
+  <div class="container">
+    <div class="place-breadcrumb">
+      <a href="../index.html">Home</a>
+      <span>·</span>
+      <span>Experiences</span>
+    </div>
+    <span class="place-tag">Travel by feeling</span>
+    <h1>Experiences</h1>
+    <p class="tagline">Six ways to feel Sri Lanka — choose the one that calls you, then add its places to your trip card.</p>
+    <div class="place-hero-actions">
+      <a class="btn-gold" href="#grid">Explore ↓</a>
+      <a class="btn-ghost" href="../tours.html">See the 10-Day Tour</a>
+    </div>
+  </div>
+</section>
+
+<main class="container" style="padding-bottom:80px">
+  <div class="exp-index-grid" id="grid">
+    <a class="exp-index-card" href="heritage.html">
+      <img alt="Ancient heritage of Sri Lanka" src="https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=900&q=80"/>
+      <div class="overlay"><span>01</span><h2>Ancient Heritage</h2><p>Rock fortresses, sacred cities and cave temples.</p></div>
+    </a>
+    <a class="exp-index-card" href="wildlife.html">
+      <img alt="Wildlife safaris in Sri Lanka" src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=900&q=80"/>
+      <div class="overlay"><span>02</span><h2>Wildlife &amp; Safaris</h2><p>Leopards, elephants, whales and wild coasts.</p></div>
+    </a>
+    <a class="exp-index-card" href="beaches.html">
+      <img alt="Beaches of Sri Lanka" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80"/>
+      <div class="overlay"><span>03</span><h2>Beaches &amp; Islands</h2><p>Golden bays, surf towns and calm eastern seas.</p></div>
+    </a>
+    <a class="exp-index-card" href="adventure.html">
+      <img alt="Adventure in Sri Lanka" src="https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=900&q=80"/>
+      <div class="overlay"><span>04</span><h2>Adventure &amp; Outdoors</h2><p>Hikes, rafting, surf and the sacred peak.</p></div>
+    </a>
+    <a class="exp-index-card" href="wellness.html">
+      <img alt="Wellness and Ayurveda in Sri Lanka" src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=900&q=80"/>
+      <div class="overlay"><span>05</span><h2>Wellness &amp; Ayurveda</h2><p>Yoga by the sea and healing in the hills.</p></div>
+    </a>
+    <a class="exp-index-card" href="food.html">
+      <img alt="Sri Lankan food" src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=900&q=80"/>
+      <div class="overlay"><span>06</span><h2>Food &amp; Local Life</h2><p>Curry, hoppers, crab and village kitchens.</p></div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-bottom" style="border:none;padding:24px 0 40px;opacity:.7">
+    <span>© 2026 Ce Voyage Sri Lanka</span>
+    <a href="../index.html">Back to home</a>
+  </div>
+</footer>
+<a class="floating-whatsapp" href="https://wa.me/33744284269" rel="noopener" target="_blank">
+  <span>WA</span>
+  <div><small>WhatsApp France</small><strong>+33 7 44 28 42 69</strong></div>
+</a>
+<script>
+(function(){
+  try {
+    var n = JSON.parse(localStorage.getItem("cevoyage-trip") || "[]").length;
+    document.querySelectorAll("[data-trip-badge]").forEach(function (b) {
+      b.textContent = n;
+      b.hidden = !n;
+    });
+  } catch (e) {}
+  var header = document.getElementById("siteHeader");
+  if (header) {
+    window.addEventListener("scroll", function () {
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    }, { passive: true });
+  }
+})();
+</script>
+</body>
+</html>
