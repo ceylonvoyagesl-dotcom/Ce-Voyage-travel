@@ -7,10 +7,21 @@ Premium bilingual (FR / EN) travel **information centre** for Sri Lanka.
 ```
 CeVoyage_Website/
 ├── index.html              # Homepage
+├── guide.html              # Travel Guide (weather, transport, culture…)
+├── tours.html              # 10-Day Tour + booking form → WhatsApp / PDF
+├── trip.html               # Trip planner (saved items cart)
 ├── styles.css              # Design system
 ├── config.js               # Brand, contacts, map data
 ├── content.js              # FR / EN strings
 ├── app.js                  # UI logic, map, forms, i18n
+├── place-app.js            # Place pages: video player + trip cart
+├── experiences-app.js      # Experience pages: linked place cards
+├── places/                 # 22 destination pages + index
+├── places-data.js          # All places, activities, images & videos
+├── experiences/            # 6 experience pages + index
+├── pdfs/                   # 10-Day Tour PDFs (EN + FR)
+├── tools/generate-pdfs.py  # PDF generator script
+├── images/                 # Local photos (backgrounds + per-place folders)
 ├── ce-voyage-logo.webp     # Official logo (transparent) — header
 ├── ce-voyage-logo-lg.webp  # Larger logo — contact / footer
 ├── ce-voyage-logo.png      # Master transparent PNG
@@ -34,14 +45,15 @@ CeVoyage_Website/
 - Contact + lead form → WhatsApp
 - Floating WhatsApp button
 
-## Next pages (build one by one)
+## Pages status
 
-1. Home — done  
-2. Region / destination detail pages (images, activities, “Add to trip”)  
-3. Experiences pages  
-4. Travel Guide (weather, transport, culture)  
-5. Trip planner / cart  
-6. Link 10-Day Tour PDFs + transport form  
+1. ✅ Home — hero videos, featured places, map, contact  
+2. ✅ 22 destination detail pages — images, activities, “Add to trip” + **videos**  
+3. ✅ Travel Guide — `guide.html` (weather, transport, culture, money, visas)  
+4. ✅ Trip planner — `trip.html` (saved items → WhatsApp)  
+5. ✅ 10-Day Tour — `tours.html` (itinerary, booking form → WhatsApp, Print/Save as PDF)  
+6. ✅ Experiences — `experiences/` (heritage, wildlife, beaches, adventure, wellness, food)  
+7. ✅ 10-Day Tour PDFs — `pdfs/ce-voyage-10-day-classic-tour-en.pdf` + `-fr.pdf` (regenerate with `python3 tools/generate-pdfs.py`)  
 
 ## Brand
 

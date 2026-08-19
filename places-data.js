@@ -7,6 +7,7 @@ window.CE_PLACES = {
     "tag": "Heritage",
     "tagline": "The Lion Rock fortress above the jungle",
     "hero": "https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=1800&q=85",
+    "video": "857270",
     "gallery": [
       "https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80",
@@ -65,6 +66,7 @@ window.CE_PLACES = {
     "tag": "Hill Country",
     "tagline": "Tea hills, train tracks and cool mountain air",
     "hero": "https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=1800&q=85",
+    "video": "4027449",
     "gallery": [
       "https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1000&q=80",
@@ -123,6 +125,7 @@ window.CE_PLACES = {
     "tag": "Culture",
     "tagline": "Sacred lake city in the hills",
     "hero": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1800&q=85",
+    "video": "857270",
     "gallery": [
       "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1000&q=80",
@@ -181,6 +184,7 @@ window.CE_PLACES = {
     "tag": "Coastal Heritage",
     "tagline": "Ocean walls and colonial streets",
     "hero": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1800&q=85",
+    "video": "2169880",
     "gallery": [
       "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
@@ -239,6 +243,7 @@ window.CE_PLACES = {
     "tag": "Beach",
     "tagline": "A horseshoe bay for surf and slow days",
     "hero": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=85",
+    "video": "3571264",
     "gallery": [
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1000&q=80",
@@ -297,6 +302,7 @@ window.CE_PLACES = {
     "tag": "Surfing",
     "tagline": "East-coast surf capital",
     "hero": "../images/arugam-bay/01-hero.jpg",
+    "video": "3571264",
     "gallery": [
       "../images/arugam-bay/02.jpg",
       "../images/arugam-bay/03.jpg",
@@ -361,6 +367,7 @@ window.CE_PLACES = {
     "tag": "Nature",
     "tagline": "Gateway to Adam’s Peak and highland tea",
     "hero": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1800&q=85",
+    "video": "4260171",
     "gallery": [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=1000&q=80",
@@ -413,6 +420,7 @@ window.CE_PLACES = {
     "tag": "Culture",
     "tagline": "Ancient temple town toward the east",
     "hero": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1800&q=85",
+    "video": "4260171",
     "gallery": [
       "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1000&q=80",
       "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1000&q=80",
@@ -459,6 +467,7 @@ window.CE_PLACES = {
     "tag": "Heritage",
     "tagline": "Ancient capital of sacred lakes and dagobas",
     "hero": "../images/anuradhapura/01-hero.jpg",
+    "video": "857270",
     "gallery": [
       "../images/anuradhapura/02.jpg",
       "../images/anuradhapura/03.jpg",
@@ -510,6 +519,7 @@ window.CE_PLACES = {
     "tag": "Heritage",
     "tagline": "Medieval capital of stone temples and kings",
     "hero": "https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=1800&q=85",
+    "video": "857270",
     "gallery": [
       "https://images.unsplash.com/photo-1588598198321-9735fd52455b?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -548,6 +558,7 @@ window.CE_PLACES = {
     "tag": "Coast",
     "tagline": "Harbour city of temples and quiet bays",
     "hero": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=85",
+    "video": "2169880",
     "gallery": [
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -586,6 +597,7 @@ window.CE_PLACES = {
     "tag": "Culture",
     "tagline": "Northern culture, islands and lagoon life",
     "hero": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1800&q=85",
+    "video": "857270",
     "gallery": [
       "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -624,6 +636,7 @@ window.CE_PLACES = {
     "tag": "Coast",
     "tagline": "Southern gateway of fort, beach and cliff temple",
     "hero": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1800&q=85",
+    "video": "1409899",
     "gallery": [
       "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -662,6 +675,7 @@ window.CE_PLACES = {
     "tag": "Adventure",
     "tagline": "Rainforest river for rafting and jungle trails",
     "hero": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1800&q=85",
+    "video": "7206024",
     "gallery": [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -700,6 +714,7 @@ window.CE_PLACES = {
     "tag": "Heritage",
     "tagline": "Cave temples above the plains",
     "hero": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1800&q=85",
+    "video": "857270",
     "gallery": [
       "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -731,6 +746,7 @@ window.CE_PLACES = {
     "tag": "Wildlife",
     "tagline": "Leopards, elephants and coastal wilderness",
     "hero": "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1800&q=85",
+    "video": "34972915",
     "gallery": [
       "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -762,6 +778,7 @@ window.CE_PLACES = {
     "tag": "Beach",
     "tagline": "Bay beach and whale waters",
     "hero": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=85",
+    "video": "1409899",
     "gallery": [
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -799,6 +816,7 @@ window.CE_PLACES = {
     "tag": "Hill Country",
     "tagline": "Colonial hill station among tea fields",
     "hero": "https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=1800&q=85",
+    "video": "4260171",
     "gallery": [
       "https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -830,6 +848,7 @@ window.CE_PLACES = {
     "tag": "Hill Country",
     "tagline": "Ridge town of mist and tea views",
     "hero": "https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=1800&q=85",
+    "video": "4027449",
     "gallery": [
       "https://images.unsplash.com/photo-1566766189268-ecac9118f2b7?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -861,6 +880,7 @@ window.CE_PLACES = {
     "tag": "Hill Country",
     "tagline": "Waterfalls on the Kandy–Nuwara Eliya road",
     "hero": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1800&q=85",
+    "video": "7206024",
     "gallery": [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -891,6 +911,7 @@ window.CE_PLACES = {
     "tag": "City",
     "tagline": "Capital energy, coast and gateways",
     "hero": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1800&q=85",
+    "video": "18993612",
     "gallery": [
       "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1000&q=80"
     ],
@@ -922,6 +943,7 @@ window.CE_PLACES = {
     "tag": "Nature",
     "tagline": "Lake country near Colombo",
     "hero": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1800&q=85",
+    "video": "2169880",
     "gallery": [
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1000&q=80"
     ],

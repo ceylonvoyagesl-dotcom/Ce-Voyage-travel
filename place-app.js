@@ -16,6 +16,7 @@
     localStorage.setItem(CART_KEY, JSON.stringify(items));
     renderCart();
     syncActivityButtons();
+    updateTripBadges();
   }
 
   function cartKey(placeId, activityId) {
@@ -112,6 +113,62 @@
     });
   }
 
+  function updateTripBadges() {
+    var n = getCart().length;
+    document.querySelectorAll("[data-trip-badge]").forEach(function (el) {
+      el.textContent = n;
+      el.hidden = !n;
+    });
+  }
+
+  // ---------- Video (Pexels stock clips, source fallback chain) ----------
+  function videoUrls(id) {
+    var base = "https://videos.pexels.com/video-files/" + id + "/" + id;
+    return [
+      base + "-uhd_2560_1440_30fps.mp4",
+      base + "-uhd_2560_1440_25fps.mp4",
+      base + "-uhd_2560_1440_24fps.mp4",
+      base + "-hd_1920_1080_30fps.mp4",
+      base + "-hd_1920_1080_25fps.mp4"
+    ];
+  }
+
+  function renderVideo(place) {
+    if (!place || !place.video) return;
+    var gallery = document.getElementById("placeGallery");
+    if (!gallery) return;
+
+    var section = document.createElement("section");
+    section.className = "place-video-section";
+    section.innerHTML =
+      '<h2 class="place-section-title">Watch the film</h2>' +
+      '<div class="place-video-frame"><video class="place-video" controls playsinline preload="none"></video></div>' +
+      '<p class="place-video-note" hidden></p>';
+    gallery.insertAdjacentElement("afterend", section);
+
+    var v = section.querySelector(".place-video");
+    var note = section.querySelector(".place-video-note");
+    v.setAttribute("poster", place.hero || "");
+
+    var urls = videoUrls(place.video);
+    urls.forEach(function (url) {
+      var s = document.createElement("source");
+      s.type = "video/mp4";
+      s.src = url;
+      v.appendChild(s);
+    });
+
+    // If even the last candidate fails, fall back to gallery-only
+    var lastSource = v.querySelector("source:last-of-type");
+    if (lastSource) {
+      lastSource.addEventListener("error", function () {
+        note.hidden = false;
+        note.textContent = "This film is not available right now — enjoy the gallery instead.";
+        v.closest(".place-video-frame").hidden = true;
+      });
+    }
+  }
+
   function initPlacePage() {
     var root = document.body;
     var placeId = root.getAttribute("data-place-id");
@@ -181,6 +238,8 @@
 
     renderCart();
     syncActivityButtons();
+    renderVideo(place);
+    updateTripBadges();
   }
 
   // Header scroll on place pages
