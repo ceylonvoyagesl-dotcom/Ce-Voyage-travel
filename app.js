@@ -451,3 +451,18 @@
       slides[i].classList.add("is-active");
     }, 5000);
   })();
+
+  // ---------- Trip badge sync (My Trip link) ----------
+  function syncTripBadge() {
+    var n = 0;
+    try {
+      n = JSON.parse(localStorage.getItem("cevoyage-trip") || "[]").length;
+    } catch (e) { /* ignore */ }
+    document.querySelectorAll("[data-trip-badge]").forEach(function (b) {
+      b.textContent = n;
+      b.hidden = !n;
+    });
+  }
+  syncTripBadge();
+  window.addEventListener("storage", syncTripBadge);
+  window.addEventListener("focus", syncTripBadge);

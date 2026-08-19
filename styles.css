@@ -2247,3 +2247,143 @@ h1, h2, h3, .cinema-title, .place-hero h1, .section-heading h2 {
     width: 104px !important;
   }
 }
+
+/* ---- Trip badge & trip nav link (all pages) ---- */
+.nav-trip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  color: inherit;
+  opacity: .85;
+  transition: opacity .2s ease;
+}
+.nav-trip-link:hover { opacity: 1; }
+.trip-badge {
+  background: #d5aa56;
+  color: #072a24;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  line-height: 1.5;
+  min-width: 22px;
+  text-align: center;
+}
+
+/* ---- Guide / Tours / Trip pages: content helpers ---- */
+.guide-section-block { margin: 56px 0; }
+.guide-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+.guide-card {
+  background: #fff;
+  border: 1px solid rgba(10, 61, 51, .08);
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 12px 36px rgba(10, 61, 51, .07);
+}
+.guide-card h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 21px;
+  margin: 0 0 10px;
+  color: #0a3d33;
+}
+.guide-card p { font-size: 14px; color: #4c5753; line-height: 1.65; margin: 0; }
+.guide-card .guide-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0a3d33, #14765d);
+  color: #d5aa56;
+  font-size: 22px;
+  margin-bottom: 14px;
+}
+.info-table { width: 100%; border-collapse: collapse; margin-top: 18px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 36px rgba(10,61,51,.07); }
+.info-table th, .info-table td { text-align: left; padding: 13px 16px; font-size: 14px; border-bottom: 1px solid rgba(10,61,51,.07); }
+.info-table th { background: #0a3d33; color: #f3ecdf; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.info-table tr:last-child td { border-bottom: none; }
+.info-table td:first-child { font-weight: 700; color: #0a3d33; }
+.check-list { list-style: none; padding: 0; margin: 12px 0 0; }
+.check-list li { padding: 9px 0 9px 34px; position: relative; font-size: 14.5px; color: #33413c; border-bottom: 1px dashed rgba(10,61,51,.1); }
+.check-list li:last-child { border-bottom: none; }
+.check-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(20, 118, 93, .14);
+  color: #14765d;
+  font-size: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Tours page ---- */
+.tour-day {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 18px;
+  background: #fff;
+  border: 1px solid rgba(10,61,51,.08);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin-bottom: 12px;
+  box-shadow: 0 10px 30px rgba(10,61,51,.06);
+}
+.tour-day .day-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0a3d33, #14765d);
+  color: #d5aa56;
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tour-day h3 { font-family: "Playfair Display", serif; font-size: 19px; margin: 0 0 6px; color: #0a3d33; }
+.tour-day p { margin: 0; font-size: 14px; color: #4c5753; line-height: 1.6; }
+.tour-day .day-place { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #14765d; margin-bottom: 4px; display: block; }
+
+/* ---- Trip planner page ---- */
+.trip-planner-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0; }
+.trip-group { margin-bottom: 26px; }
+.trip-group h3 { font-family: "Playfair Display", serif; font-size: 20px; color: #0a3d33; margin: 0 0 10px; }
+.trip-empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border: 1px dashed rgba(10,61,51,.18);
+  border-radius: 22px;
+}
+.trip-empty-state .big-icon { font-size: 44px; display: block; margin-bottom: 14px; }
+.trip-empty-state h2 { font-family: "Playfair Display", serif; font-size: 26px; margin: 0 0 8px; color: #0a3d33; }
+.trip-empty-state p { color: #5c6a64; max-width: 460px; margin: 0 auto 20px; }
+
+/* ---- Print (Tours PDF) ---- */
+@media print {
+  .site-header, .v3-header, .floating-whatsapp, .no-print, footer, .toast { display: none !important; }
+  body { background: #fff !important; }
+  .place-hero { min-height: 260px !important; }
+  .tour-day, .guide-card { box-shadow: none !important; break-inside: avoid; }
+}
+
+/* Mobile: booking form single column */
+@media (max-width: 640px) {
+  .form-2col { grid-template-columns: 1fr !important; }
+}

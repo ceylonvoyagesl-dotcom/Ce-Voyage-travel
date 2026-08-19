@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0a3d33"/>
+<meta name="description" content="Ce Voyage — your trip card: review the places and activities you saved, then send your plan on WhatsApp."/>
+<title>My Trip | Ce Voyage Sri Lanka</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link href="place.css" rel="stylesheet"/>
+</head>
+<body class="place-page">
+<header class="site-header v3-header place-header" id="siteHeader">
+  <div class="container nav-wrap v3-nav-wrap">
+    <a class="brand logo-brand v3-logo-brand" href="index.html" aria-label="Ce Voyage home">
+      <img class="logo-image" src="ce-voyage-logo.webp" alt="Ce Voyage"/>
+    </a>
+    <nav class="desktop-nav v3-desktop-nav" aria-label="Main">
+      <a href="index.html#discover">Discover</a>
+      <a href="places/index.html">Places</a>
+      <a href="guide.html">Travel Guide</a>
+      <a href="tours.html">10-Day Tours</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-trip-link" href="trip.html">My Trip <span class="trip-badge" data-trip-badge hidden>0</span></a>
+      <a class="v3-header-cta" href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<section class="place-hero" id="tripTop">
+  <div class="place-hero-bg" style="background-image:url('images/bg-mountains.jpg')"></div>
+  <div class="container">
+    <div class="place-breadcrumb">
+      <a href="index.html">Home</a>
+      <span>·</span>
+      <span>My Trip</span>
+    </div>
+    <span class="place-tag">Your planner</span>
+    <h1>My Trip Card</h1>
+    <p class="tagline">Everything you saved from the place pages — review it, trim it, and send it to us to shape the journey.</p>
+    <div class="place-hero-actions">
+      <button class="btn-gold" type="button" id="waTripBtn">Send trip on WhatsApp</button>
+      <a class="btn-ghost" href="places/index.html">Add more places</a>
+    </div>
+  </div>
+</section>
+
+<main class="container place-layout">
+  <div>
+    <div id="tripEmptyWrap" hidden>
+      <div class="trip-empty-state">
+        <span class="big-icon">🧳</span>
+        <h2>Your trip card is empty</h2>
+        <p>Open any place page — Sigiriya, Ella, Yala… — and tap “Add to trip” on the places and activities you love. They will appear here.</p>
+        <div class="place-hero-actions" style="justify-content:center">
+          <a class="btn-gold" href="places/index.html">Explore places</a>
+          <a class="btn-ghost" href="tours.html">See the 10-Day Tour</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="tripListWrap" hidden>
+      <h2 class="place-section-title">Your saved items <span id="tripCount" style="font-size:14px;font-weight:700;color:#14765d"></span></h2>
+      <div class="trip-planner-actions no-print">
+        <button class="btn-gold" type="button" id="waTripBtn2">Send trip on WhatsApp</button>
+        <button class="btn-ghost" type="button" id="clearTripBtn">Clear all</button>
+      </div>
+      <div id="tripList"></div>
+      <p class="place-summary" style="margin-top:18px">Tip: send us this list on WhatsApp and we will turn it into a day-by-day route with hotels, transport and a price — free of charge.</p>
+    </div>
+  </div>
+  <aside class="place-side">
+    <div class="trip-panel">
+      <h2>How it works</h2>
+      <p>1. Add places &amp; activities from the place pages.</p>
+      <p>2. Review everything here on your trip card.</p>
+      <p>3. Send the plan on WhatsApp — we reply with a complete itinerary.</p>
+      <a class="btn-gold" href="places/index.html" style="justify-content:center;width:100%">Browse places</a>
+    </div>
+    <h2 class="place-section-title" style="font-size:20px">Quick links</h2>
+    <div class="nearby-links">
+      <a href="tours.html"><span>10-Day Tours</span><span>→</span></a>
+      <a href="guide.html"><span>Travel Guide</span><span>→</span></a>
+      <a href="places/index.html"><span>All places</span><span>→</span></a>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="container footer-bottom" style="border:none;padding:24px 0 40px;opacity:.7">
+    <span>© 2026 Ce Voyage Sri Lanka</span>
+    <a href="index.html">Back to home</a>
+  </div>
+</footer>
+<a class="floating-whatsapp" href="https://wa.me/33744284269" rel="noopener" target="_blank">
+  <span>WA</span>
+  <div><small>WhatsApp France</small><strong>+33 7 44 28 42 69</strong></div>
+</a>
+<div class="toast" id="toast"></div>
+<script>
+(function () {
+  "use strict";
+  var CART_KEY = "cevoyage-trip";
+
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+    catch (e) { return []; }
+  }
+  function saveCart(items) {
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
+    render();
+  }
+  function showToast(text) {
+    var toast = document.getElementById("toast");
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add("show");
+    setTimeout(function () { toast.classList.remove("show"); }, 2800);
+  }
+  function updateBadges(n) {
+    document.querySelectorAll("[data-trip-badge]").forEach(function (b) {
+      b.textContent = n;
+      b.hidden = !n;
+    });
+  }
+
+  function render() {
+    var cart = getCart();
+    var emptyWrap = document.getElementById("tripEmptyWrap");
+    var listWrap = document.getElementById("tripListWrap");
+    var list = document.getElementById("tripList");
+    var count = document.getElementById("tripCount");
+    updateBadges(cart.length);
+
+    if (!cart.length) {
+      emptyWrap.hidden = false;
+      listWrap.hidden = true;
+      return;
+    }
+    emptyWrap.hidden = true;
+    listWrap.hidden = false;
+    count.textContent = "— " + cart.length + " item" + (cart.length > 1 ? "s" : "");
+    list.innerHTML = "";
+
+    // group by place
+    var groups = {};
+    cart.forEach(function (item) {
+      (groups[item.placeId] = groups[item.placeId] || { placeName: item.placeName, placeId: item.placeId, items: [] }).items.push(item);
+    });
+    Object.keys(groups).forEach(function (pid) {
+      var g = groups[pid];
+      var wrap = document.createElement("div");
+      wrap.className = "trip-group";
+      var h = document.createElement("h3");
+      h.textContent = g.placeName;
+      wrap.appendChild(h);
+      g.items.forEach(function (item) {
+        var row = document.createElement("div");
+        row.className = "trip-item";
+        var info = document.createElement("span");
+        var strong = document.createElement("strong");
+        strong.textContent = item.activityName;
+        var small = document.createElement("small");
+        small.textContent = (item.type ? item.type + " · " : "") + (item.duration || "");
+        info.appendChild(strong);
+        info.appendChild(document.createElement("br"));
+        info.appendChild(small);
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = "Remove";
+        btn.addEventListener("click", function () {
+          saveCart(getCart().filter(function (i) {
+            return !(i.placeId === item.placeId && i.activityId === item.activityId);
+          }));
+          showToast("Removed from trip");
+        });
+        row.appendChild(info);
+        row.appendChild(btn);
+        wrap.appendChild(row);
+      });
+      list.appendChild(wrap);
+    });
+  }
+
+  function sendWhatsApp() {
+    var cart = getCart();
+    var lines = ["🌍 *Ce Voyage — Trip request*", ""];
+    if (!cart.length) {
+      lines.push("I'm interested in planning a trip to Sri Lanka.");
+    } else {
+      lines.push("My trip plan:");
+      cart.forEach(function (i, idx) {
+        lines.push((idx + 1) + ". " + i.activityName + " (" + i.placeName + ")");
+      });
+    }
+    lines.push("", "Please help me plan this journey.");
+    var url = "https://wa.me/33744284269?text=" + encodeURIComponent(lines.join("\n"));
+    window.open(url, "_blank", "noopener");
+  }
+
+  var wa1 = document.getElementById("waTripBtn");
+  var wa2 = document.getElementById("waTripBtn2");
+  if (wa1) wa1.addEventListener("click", sendWhatsApp);
+  if (wa2) wa2.addEventListener("click", sendWhatsApp);
+  var clearBtn = document.getElementById("clearTripBtn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", function () {
+      if (confirm("Remove everything from your trip card?")) {
+        saveCart([]);
+        showToast("Trip card cleared");
+      }
+    });
+  }
+
+  var header = document.getElementById("siteHeader");
+  if (header) {
+    window.addEventListener("scroll", function () {
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    }, { passive: true });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
