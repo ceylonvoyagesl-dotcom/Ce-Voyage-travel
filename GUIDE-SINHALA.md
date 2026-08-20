@@ -307,3 +307,36 @@ README.md එකේ තියෙන plan එක:
 - [ ] Local preview එකේ හැම පිටුවක්ම බැලුවා
 - [ ] Sinhala/English/Tamil අකුරු කැඩිලා නෑ (UTF-8)
 - [ ] `git add . && git commit && git push`
+
+---
+
+## 8. 🔴 LIVE Page එක — Post link copy කරලා Social Media වලට දාන හැටි
+
+Live page එකේ (`live.html`) post එකක් publish කරාම **ඒ post එකටම වෙනම link එකක්** හැදෙනවා.
+
+### වැඩ කරන විදිහ
+1. `live.html` → **+ Upload** → post එකක් හදලා **Publish** කරන්න
+2. Publish කරාම පස්සේ මතක තියාගන්නවා: **"✅ Post live වුණා!"** panel එකක් එනවා — ඒකේ තමයි ඒ post එකේ link එක
+3. **🔗 Copy** බටන් එකෙන් link එක copy කරලා Facebook / WhatsApp / Instagram bio වලට දාන්න
+4. Feed එකේ එක එක post card එක යටත් **🔗 Copy link / WhatsApp / Facebook / 👁 Open** බටන් තියෙනවා
+5. Story එකක් open කරලා පහළ දකුණු කෙළවරේ **🔗 Copy link** එකෙන් story link එකත් copy කරන්න පුළුවන්
+6. Link එක open කරාම post එක **විශාල viewer** එකකින් පේනවා (+ Ce Voyage ලින්කුවකුත් එක්කම)
+
+### වැදගත් — link වර්ග 2ක් තියෙනවා
+| Post වර්ගය | Link එක වැඩ කරන්නේ |
+|---|---|
+| Text post / Internet photo URL එකක් තියෙන post | **හැමෝටම** වැඩ කරනවා (post data ම link එක ඇතුළේම encode වෙලා තියෙනවා) |
+| Phone එකෙන් upload කරපු photo/video | ඒ upload කරපු **browser එකේ විතරයි** වැඩ කරන්නේ (photo එක device එකේ save වෙලා තියෙන නිසා) |
+
+**Tip:** හැමෝටම පේන post එකක් ඕන නම් — photo එක internet URL එකකින් (unsplash/pexels) දාන්න, phone upload එකෙන් නෙමෙයි.
+
+**සටහන:** Posts ඔයාගේ browser එකේ save වෙනවා (localStorage). ඒ නිසා phone එකේ දාපු post එකක් අනිත් browser එකක පේන්නේ නෑ — ඒත් link එකේ data encode වෙලා තියෙන නිසා බොහෝ posts හැම තැනම වැඩ කරනවා.
+
+### 📱 Social media post එකක් website feed එකට එන්න (Import)
+1. Instagram / Facebook / YouTube / TikTok / X එකේ ඔයාගේ post එකේ **link එක copy** කරන්න
+2. `live.html` → **+ Social post** → link එක paste කරලා caption එකක් දාන්න (optional) → **Add to feed**
+3. ඒ post එක **Live feed එකට කෙලින්ම එනවා** — original post එකම embed වෙලා (play කරන්නත් පුළුවන්)
+4. Platform badge එකකුත් එනවා (Instagram / Facebook / YouTube / TikTok / X) + "↗ Instagram" වගේ button එකකින් original post එකට යන්න පුළුවන්
+5. ඒ card එකටත් **🔗 Copy link** එකෙන් website link එක copy කරන්න පුළුවන්
+
+**සටහන:** මේක fully automatic නෙමෙයි (API keys + server එකක් ඕන නිසයි) — ඒත් seconds දෙකයි වැඩේ: social එකේ post කරලා link එක paste කරන එක විතරයි. Connect social එකේ page timelines (Facebook page / X / YouTube channel) automatic update වෙනවා.

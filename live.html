@@ -34,6 +34,7 @@
   <div class="live-toolbar">
     <h1>Live from the island</h1>
     <button class="chip-btn live" type="button" id="openComposer">+ Upload</button>
+    <button class="chip-btn live" type="button" id="openSocialPost">+ Social post</button>
     <button class="chip-btn primary" type="button" id="openSocial">Connect social</button>
     <a class="chip-btn" href="index.html">Home</a>
   </div>
@@ -63,6 +64,20 @@
       <button class="chip-btn primary" type="submit">Publish</button>
     </div>
   </form>
+
+  <form class="composer" id="socialPostComposer">
+    <p style="margin:0 0 8px;font-size:14px;color:#4c5753">Social media එකේ දාපු post එකේ <strong>link එක paste</strong> කරන්න — Instagram, Facebook, YouTube, TikTok හෝ X. ඒ post එක Live feed එකට කෙලින්ම එනවා. 🔗</p>
+    <label>Post link
+      <input id="spUrl" placeholder="https://www.instagram.com/p/… / Facebook / YouTube / TikTok / X post URL" required/>
+    </label>
+    <label>Caption (optional)
+      <input id="spCaption" placeholder="Ella · Nine Arch"/>
+    </label>
+    <div class="row">
+      <button class="chip-btn primary" type="submit">Add to feed</button>
+    </div>
+  </form>
+  <div id="publishDone"></div>
 
   <form class="composer" id="socialComposer">
     <p style="margin:0 0 8px;font-size:14px;color:#4c5753">ඔයාගේ official pages connect කරන්න. Save කළාම Live wall එකේ feed පේනවා.</p>
@@ -111,6 +126,7 @@
     <img id="storyMediaImg" alt=""/>
     <video id="storyMediaVideo" playsinline></video>
     <div class="cap" id="storyCaption"></div>
+    <button class="story-share" id="storyShare" type="button">🔗 Copy link</button>
   </div>
 </div>
 
