@@ -1,0 +1,839 @@
+/* =========================================================
+   CE VOYAGE — "Things to Do & Events in Sri Lanka" Page
+   ========================================================= */
+
+/* ---- Hero Section ---- */
+.ttd-hero {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: flex-end;
+  color: white;
+  overflow: hidden;
+  padding: 130px 0 56px;
+}
+
+.ttd-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  transition: opacity 1.4s ease;
+}
+
+.ttd-hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 42, 36, 0.30) 0%,
+    rgba(7, 42, 36, 0.55) 50%,
+    rgba(7, 42, 36, 0.88) 100%
+  );
+}
+
+.ttd-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.ttd-hero-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 18px;
+}
+
+.ttd-hero-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ttd-hero-breadcrumb a:hover {
+  color: #ead39f;
+}
+
+.ttd-hero-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ead39f;
+  margin-bottom: 16px;
+}
+
+.ttd-hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(38px, 5.5vw, 66px);
+  line-height: 1.05;
+  margin-bottom: 14px;
+  max-width: 800px;
+}
+
+.ttd-hero h1 em {
+  color: #ead39f;
+  font-style: italic;
+}
+
+.ttd-hero .tagline {
+  font-size: 17px;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-bottom: 26px;
+  line-height: 1.6;
+}
+
+.ttd-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ---- Section Headings ---- */
+.ttd-section-heading {
+  margin-bottom: 36px;
+}
+
+.ttd-section-heading .section-kicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.21em;
+  text-transform: uppercase;
+  color: #d5aa56;
+  margin-bottom: 8px;
+}
+
+.ttd-section-heading h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  color: #0a3d33;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.ttd-section-heading p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #6e7773;
+  line-height: 1.6;
+  max-width: 640px;
+}
+
+/* ---- Events Section ---- */
+.ttd-events-section {
+  padding: 72px 0;
+  background: linear-gradient(180deg, #fffdf8 0%, #f3ecdf 100%);
+}
+
+.ttd-events-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.ttd-events-tab {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 2px solid rgba(10, 61, 51, 0.12);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a3d33;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.ttd-events-tab:hover {
+  border-color: #14765d;
+  color: #14765d;
+}
+
+.ttd-events-tab.active {
+  background: #0a3d33;
+  color: white;
+  border-color: #0a3d33;
+}
+
+.ttd-events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+.ttd-event-card {
+  background: white;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(10, 61, 51, 0.08);
+  border: 1px solid rgba(10, 61, 51, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ttd-event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 56px rgba(10, 61, 51, 0.14);
+}
+
+.ttd-event-card-img {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.ttd-event-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ttd-event-card:hover .ttd-event-card-img img {
+  transform: scale(1.06);
+}
+
+.ttd-event-card-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.ttd-event-badge-cultural {
+  background: #d5aa56;
+  color: #17211e;
+}
+
+.ttd-event-badge-seasonal {
+  background: #14765d;
+  color: white;
+}
+
+.ttd-event-card-body {
+  padding: 22px;
+}
+
+.ttd-event-card-date {
+  font-size: 12px;
+  font-weight: 700;
+  color: #d5aa56;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.ttd-event-card-body h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 20px;
+  color: #0a3d33;
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+.ttd-event-card-venue {
+  font-size: 12px;
+  color: #6e7773;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ttd-event-card-body p {
+  font-size: 13.5px;
+  color: #4c5753;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.ttd-event-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: #0a3d33;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.25s ease;
+}
+
+.ttd-event-card-cta:hover {
+  background: #14765d;
+}
+
+/* ---- Activity Categories Section ---- */
+.ttd-activities-section {
+  padding: 72px 0 80px;
+  background: #fffdf8;
+}
+
+.ttd-filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  padding: 8px;
+  background: #f3ecdf;
+  border-radius: 18px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ttd-filter-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.ttd-filter-btn {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a3d33;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.ttd-filter-btn:hover {
+  background: rgba(10, 61, 51, 0.08);
+}
+
+.ttd-filter-btn.active {
+  background: #0a3d33;
+  color: white;
+}
+
+/* Category group */
+.ttd-category-group {
+  margin-bottom: 48px;
+}
+
+.ttd-category-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid rgba(10, 61, 51, 0.08);
+}
+
+.ttd-category-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0a3d33, #14765d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.ttd-category-header h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 26px;
+  color: #0a3d33;
+  margin: 0;
+}
+
+.ttd-category-header p {
+  font-size: 14px;
+  color: #6e7773;
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+
+/* Activity Cards Grid */
+.ttd-activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.ttd-activity-card {
+  background: white;
+  border: 1px solid rgba(10, 61, 51, 0.06);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 8px 28px rgba(10, 61, 51, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ttd-activity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(10, 61, 51, 0.1);
+}
+
+.ttd-activity-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.ttd-activity-emoji {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #f3ecdf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.ttd-activity-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ttd-activity-info h3 {
+  font-size: 16px;
+  color: #0a3d33;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.ttd-activity-info p {
+  font-size: 12.5px;
+  color: #6e7773;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ttd-activity-location {
+  font-size: 11px;
+  font-weight: 600;
+  color: #d5aa56;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.ttd-activity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ttd-activity-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(10, 61, 51, 0.06);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #0a3d33;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ttd-activity-card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #0a3d33;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 4px;
+  transition: background 0.25s ease, transform 0.25s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.ttd-activity-card-cta:hover {
+  background: #14765d;
+  transform: translateY(-1px);
+}
+
+/* ---- Stats Bar ---- */
+.ttd-stats-bar {
+  padding: 48px 0;
+  background: #0a3d33;
+  color: white;
+}
+
+.ttd-stats-inner {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  text-align: center;
+}
+
+.ttd-stat-item strong {
+  display: block;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(32px, 4vw, 48px);
+  color: #ead39f;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.ttd-stat-item span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.7;
+}
+
+/* ---- CTA Banner ---- */
+.ttd-cta-banner {
+  padding: 80px 0;
+  background:
+    linear-gradient(180deg, rgba(3, 26, 21, 0.45), rgba(3, 26, 21, 0.65)),
+    url("../images/bg-tea-lake.jpg") center / cover no-repeat;
+  color: white;
+  text-align: center;
+}
+
+.ttd-cta-banner h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  margin-bottom: 14px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ttd-cta-banner p {
+  font-size: 16px;
+  opacity: 0.85;
+  max-width: 560px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+.ttd-cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ---- No Results ---- */
+.ttd-no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6e7773;
+  display: none;
+}
+
+.ttd-no-results.show {
+  display: block;
+}
+
+.ttd-no-results h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 24px;
+  color: #0a3d33;
+  margin-bottom: 8px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .ttd-hero {
+    min-height: 460px;
+    padding: 110px 0 40px;
+  }
+
+  .ttd-hero h1 {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+
+  .ttd-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ttd-hero-actions .btn-gold,
+  .ttd-hero-actions .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ttd-events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ttd-activity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ttd-category-header h2 {
+    font-size: 22px;
+  }
+
+  .ttd-stats-inner {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ttd-hero {
+    min-height: 380px;
+    padding: 100px 0 30px;
+  }
+
+  .ttd-hero .tagline {
+    font-size: 15px;
+  }
+
+  .ttd-events-section,
+  .ttd-activities-section {
+    padding: 52px 0;
+  }
+
+  .ttd-filter-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .ttd-activity-card {
+    padding: 18px;
+  }
+
+  .ttd-activity-card-top {
+    gap: 10px;
+  }
+
+  .ttd-event-card-body {
+    padding: 18px;
+  }
+}
+
+/* ---- CMS Admin Panel ---- */
+.ttd-admin-panel {
+  display: none;
+  padding: 20px;
+  background: #fff;
+  border: 2px dashed #d5aa56;
+  border-radius: 18px;
+  margin-top: 24px;
+}
+
+.ttd-admin-panel.visible {
+  display: block;
+}
+
+.ttd-admin-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid #d5aa56;
+  background: rgba(213, 170, 86, 0.1);
+  color: #0a3d33;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 24px;
+  transition: background 0.25s ease;
+}
+
+.ttd-admin-toggle:hover {
+  background: rgba(213, 170, 86, 0.2);
+}
+
+.ttd-admin-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.ttd-admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0a3d33;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ttd-admin-form input,
+.ttd-admin-form textarea,
+.ttd-admin-form select {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(10, 61, 51, 0.15);
+  background: #f9f7f3;
+  font-size: 14px;
+  color: #17211e;
+  font-family: inherit;
+}
+
+.ttd-admin-form input:focus,
+.ttd-admin-form textarea:focus,
+.ttd-admin-form select:focus {
+  outline: none;
+  border-color: #14765d;
+  box-shadow: 0 0 0 3px rgba(20, 118, 93, 0.12);
+}
+
+.ttd-admin-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.ttd-admin-save {
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: none;
+  background: #0a3d33;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.ttd-admin-save:hover {
+  background: #14765d;
+}
+
+.ttd-admin-cancel {
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(10, 61, 51, 0.15);
+  background: transparent;
+  color: #0a3d33;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ttd-admin-events-list {
+  margin-top: 20px;
+}
+
+.ttd-admin-event-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f3ecdf;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.ttd-admin-event-item strong {
+  color: #0a3d33;
+}
+
+.ttd-admin-event-item small {
+  color: #6e7773;
+}
+
+.ttd-admin-delete {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: none;
+  background: #c0392b;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ttd-admin-delete:hover {
+  background: #a93226;
+}
+
+/* ---- Image Upload Zone ---- */
+.ttd-upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px;
+  border: 2px dashed rgba(10, 61, 51, 0.2);
+  border-radius: 14px;
+  background: #f9f7f3;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+  min-height: 100px;
+  text-align: center;
+}
+
+.ttd-upload-zone:hover,
+.ttd-upload-zone.dragover {
+  border-color: #14765d;
+  background: rgba(20, 118, 93, 0.05);
+}
+
+.ttd-upload-icon {
+  font-size: 28px;
+}
+
+.ttd-upload-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0a3d33;
+}
+
+.ttd-upload-hint {
+  font-size: 11px;
+  color: #6e7773;
+}
+
+.ttd-upload-preview {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.ttd-upload-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #c0392b;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.ttd-upload-remove:hover {
+  background: #a93226;
+}
