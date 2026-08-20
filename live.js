@@ -151,6 +151,168 @@
     }, 2400);
   }
 
+  /* ---------- Manage posts (edit / delete) ---------- */
+  var BUCKETS = ["posts", "blogs", "stories"];
+  var editingId = null;
+
+  /* Find a saved item (post / blog / story) by id */
+  function findItem(data, id) {
+    if (!id) return null;
+    for (var b = 0; b < BUCKETS.length; b++) {
+      var arr = data[BUCKETS[b]] || [];
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i].id === id) return { bucket: BUCKETS[b], index: i, item: arr[i] };
+      }
+    }
+    return null;
+  }
+
+  function isSaved(id) {
+    return !!findItem(load(), id);
+  }
+
+  function itemKind(found) {
+    if (!found) return "post";
+    if (found.item.kind) return found.item.kind;
+    if (found.bucket === "blogs") return "blog";
+    if (found.bucket === "stories") return "story";
+    return "post";
+  }
+
+  function composerEls() {
+    return {
+      form: document.getElementById("liveComposer"),
+      kind: document.getElementById("liveKind"),
+      title: document.getElementById("liveTitle"),
+      body: document.getElementById("liveBody"),
+      file: document.getElementById("liveFile"),
+      submit: document.querySelector("#liveComposer button[type=submit]"),
+      row: document.querySelector("#liveComposer .row")
+    };
+  }
+
+  /* Open the composer pre-filled with an existing post */
+  function startEdit(p) {
+    var els = composerEls();
+    if (!els.form) return;
+    var data = load();
+    var found = findItem(data, p.id);
+    if (!found) { toast("⚠️ This post is not saved in this browser"); return; }
+    var item = found.item;
+    var kind = itemKind(found);
+    editingId = item.id;
+
+    if (els.kind) {
+      if (kind === "social" && !els.kind.querySelector('option[value="social"]')) {
+        var opt = document.createElement("option");
+        opt.value = "social";
+        opt.textContent = "Imported social post";
+        opt.setAttribute("data-temp", "1");
+        els.kind.appendChild(opt);
+      }
+      els.kind.value = kind;
+      els.kind.disabled = true;
+    }
+    if (els.title) els.title.value = item.title || item.name || "";
+    if (els.body) els.body.value = item.body || item.caption || "";
+    if (els.file) {
+      els.file.value = "";
+      var fileLabel = els.file.parentNode;
+      if (fileLabel && fileLabel.tagName === "LABEL") {
+        fileLabel.style.display = kind === "social" ? "none" : "";
+      }
+    }
+    if (els.submit) els.submit.textContent = "💾 Save changes";
+    if (els.row && !document.getElementById("cancelEdit")) {
+      var cancel = document.createElement("button");
+      cancel.type = "button";
+      cancel.id = "cancelEdit";
+      cancel.className = "chip-btn";
+      cancel.textContent = "Cancel";
+      cancel.addEventListener("click", function () { exitEdit(true); });
+      els.row.appendChild(cancel);
+    }
+    els.form.classList.add("open", "editing");
+    closePostView();
+    els.form.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (els.title) els.title.focus();
+  }
+
+  /* Leave edit mode and put the composer back to "Publish" */
+  function exitEdit(reset) {
+    var els = composerEls();
+    editingId = null;
+    if (!els.form) return;
+    if (els.kind) {
+      els.kind.disabled = false;
+      var temp = els.kind.querySelector('option[data-temp="1"]');
+      if (temp && temp.parentNode) temp.parentNode.removeChild(temp);
+    }
+    if (els.file) {
+      var fileLabel = els.file.parentNode;
+      if (fileLabel && fileLabel.tagName === "LABEL") fileLabel.style.display = "";
+    }
+    if (reset !== false) els.form.reset();
+    if (els.submit) els.submit.textContent = "Publish";
+    var cancel = document.getElementById("cancelEdit");
+    if (cancel && cancel.parentNode) cancel.parentNode.removeChild(cancel);
+    els.form.classList.remove("editing");
+    if (reset !== false) els.form.classList.remove("open");
+  }
+
+  /* Save the edits back into localStorage */
+  function saveEdit() {
+    var els = composerEls();
+    var data = load();
+    var found = findItem(data, editingId);
+    if (!found) { toast("⚠️ This post is not saved in this browser"); exitEdit(true); return; }
+    var item = found.item;
+    var title = els.title ? els.title.value.trim() : "";
+    var body = els.body ? els.body.value.trim() : "";
+    var file = els.file && els.file.files ? els.file.files[0] : null;
+
+    item.title = title;
+    item.name = title || item.name || "Ce Voyage";
+    item.body = body;
+    item.caption = body;
+
+    function finish() {
+      save(data);
+      exitEdit(true);
+      renderLivePage();
+      renderStoriesHome();
+      showPublishDone(item, true);
+      toast("✅ Post updated");
+    }
+
+    /* Imported social posts keep their embed — only the caption changes */
+    if (file && item.kind !== "social") {
+      fileToDataUrl(file).then(function (url) {
+        item.src = url;
+        item.type = file.type.indexOf("video") === 0 ? "video" : "image";
+        finish();
+      });
+    } else {
+      finish();
+    }
+  }
+
+  function deletePost(p) {
+    if (!window.confirm("Delete this post? This cannot be undone.")) return;
+    var data = load();
+    var found = findItem(data, p.id);
+    if (!found) { toast("⚠️ This post is not saved in this browser"); return; }
+    data[found.bucket].splice(found.index, 1);
+    save(data);
+    if (editingId === p.id) exitEdit(true);
+    closePostView();
+    var box = document.getElementById("publishDone");
+    if (box) box.innerHTML = "";
+    renderLivePage();
+    renderStoriesHome();
+    toast("🗑 Post deleted");
+  }
+
   function actionRow(p) {
     var wrap = document.createElement("div");
     wrap.className = "post-actions";
@@ -202,6 +364,21 @@
         navigator.share({ title: p.title || "Ce Voyage", text: p.body || p.caption || "", url: postLink(p) }).catch(function () {});
       });
       wrap.appendChild(sh);
+    }
+    /* Manage: edit / delete — only for posts saved in this browser */
+    if (p && p.id && isSaved(p.id)) {
+      var ed = document.createElement("button");
+      ed.type = "button";
+      ed.className = "mini-btn edit";
+      ed.textContent = "✏️ Edit";
+      ed.addEventListener("click", function () { startEdit(p); });
+      wrap.appendChild(ed);
+      var del = document.createElement("button");
+      del.type = "button";
+      del.className = "mini-btn del";
+      del.textContent = "🗑 Delete";
+      del.addEventListener("click", function () { deletePost(p); });
+      wrap.appendChild(del);
     }
     return wrap;
   }
@@ -262,12 +439,12 @@
     if (main) {
       var note = document.createElement("div");
       note.className = "post-notfound";
-      note.innerHTML = "⚠️ මේ link එකේ post එක මේ browser එකේ save වෙලා නෑ. Post එක upload කරපු device එකෙන් open කරන්න.";
+      note.innerHTML = "⚠️ This post is not saved in this browser. Open the link on the device the post was uploaded from.";
       main.insertBefore(note, main.firstChild);
     }
   }
 
-  function showPublishDone(item) {
+  function showPublishDone(item, edited) {
     var box = document.getElementById("publishDone");
     if (!box) return;
     box.innerHTML = "";
@@ -275,10 +452,12 @@
     var card = document.createElement("div");
     card.className = "publish-done";
     card.innerHTML =
-      "<strong>✅ Post live වුණා!</strong> මේක තමයි මේ post එකේ link එක — copy කරලා social media වලට දාන්න:" +
+      (edited
+        ? "<strong>✅ Post updated!</strong> Old links keep the old version — copy the link again:"
+        : "<strong>✅ Post is live!</strong> This is the link to this post — copy it and share it on social media:") +
       '<div class="post-link-box"><input readonly value="' + postLink(item).replace(/"/g, "&quot;") + '"/><button type="button" class="mini-btn copy">🔗 Copy</button></div>' +
       '<div class="row-actions"></div>' +
-      (localOnly ? '<p class="note">ℹ️ Phone එකෙන් upload කරපු photo එක තියෙන link වෙන browser වල පේන්නේ නෑ (photo එක මේ device එකේ තමයි save වෙලා තියෙන්නේ). හැමෝටම පේන link එකක් ඕන නම් photo URL එකක් දාන්න.</p>' : "");
+      (localOnly ? '<p class="note">ℹ️ A photo uploaded from your phone is stored on this device only, so the link will not show it in other browsers. Use a photo URL if you need a link everyone can see.</p>' : "");
     box.appendChild(card);
     card.querySelector(".post-link-box .copy").addEventListener("click", function () { copyText(postLink(item)); });
     card.querySelector(".row-actions").appendChild(actionRow(item));
@@ -299,7 +478,7 @@
       var cap = capEl ? capEl.value.trim() : "";
       var d = detectSocial(url);
       if (!d) {
-        toast("⚠️ Link එක හඳුනගන්න බෑ — Instagram / Facebook / YouTube / TikTok / X post link එකක් දාන්න");
+        toast("⚠️ Link not recognised — paste an Instagram / Facebook / YouTube / TikTok / X post link");
         return;
       }
       var data = load();
@@ -320,7 +499,7 @@
       form.classList.remove("open");
       renderLivePage();
       showPublishDone(item);
-      toast("✅ " + d.label + " post එක feed එකට add වුණා");
+      toast("✅ " + d.label + " post added to the feed");
     });
   }
 
@@ -462,9 +641,11 @@
 
   function bindComposer() {
     var form = document.getElementById("liveComposer");
-    if (!form) return;
+    if (!form || form.getAttribute("data-bound") === "1") return;
+    form.setAttribute("data-bound", "1");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (editingId) { saveEdit(); return; }
       var kind = document.getElementById("liveKind").value;
       var title = document.getElementById("liveTitle").value.trim();
       var body = document.getElementById("liveBody").value.trim();
@@ -514,7 +695,10 @@
     var openBtn = document.getElementById("openComposer");
     var form = document.getElementById("liveComposer");
     if (openBtn && form) {
-      openBtn.addEventListener("click", function () { form.classList.toggle("open"); });
+      openBtn.addEventListener("click", function () {
+        if (editingId) { exitEdit(true); return; }
+        form.classList.toggle("open");
+      });
     }
     if (location.hash === "#upload" && form) form.classList.add("open");
     if (location.hash === "#socialpost") {
@@ -590,21 +774,21 @@
           var src = igEmbedSrc(u);
           return src ? '<iframe src="' + src + '" loading="lazy" allowtransparency="true"></iframe>' : "";
         }).join("") + "</div>"
-      : '<div class="empty">Instagram post / Reel link එකක් Connect social එකෙන් දාන්න. Profile link එකෙන් page එක open වෙනවා.</div>';
+      : '<div class="empty">Add an Instagram post / Reel link under Connect social. The profile link opens your page.</div>';
 
     var fbHtml = s.facebook
       ? '<iframe src="https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(s.facebook) + '&tabs=timeline&width=500&height=520&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false" loading="lazy" allow="encrypted-media"></iframe>'
-      : '<div class="empty">Facebook page URL එක දාන්න — timeline එක මෙතන පේනවා.</div>';
+      : '<div class="empty">Add your Facebook page URL — the timeline appears here.</div>';
 
     var user = twUser(s.twitter);
     var twHtml = user
       ? '<a class="twitter-timeline" data-height="520" href="https://twitter.com/' + encodeURIComponent(user) + '">Tweets by @' + escapeHtml(user) + "</a>"
-      : '<div class="empty">X / Twitter profile URL එක දාන්න.</div>';
+      : '<div class="empty">Add your X / Twitter profile URL.</div>';
 
     var yt = ytEmbed(s.youtube);
     var ytHtml = yt
       ? '<iframe src="' + yt + '" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-      : '<div class="empty">YouTube video, playlist හෝ @channel එක දාන්න.</div>';
+      : '<div class="empty">Add a YouTube video, playlist or @channel.</div>';
 
     wall.innerHTML =
       '<div class="social-embed"><h3>Instagram</h3>' + igHtml + "</div>" +

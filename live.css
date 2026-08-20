@@ -314,6 +314,14 @@
 .mini-btn.wa { background: #25d366; color: #fff; border-color: #25d366; }
 .mini-btn.fb { background: #1877f2; color: #fff; border-color: #1877f2; }
 .mini-btn.share { background: #e11d48; color: #fff; border-color: #e11d48; }
+.mini-btn.edit { margin-left: auto; background: #fff8e6; border-color: rgba(180,120,10,.35); color: #8a5a06; }
+.mini-btn.del { background: #dc2626; color: #fff; border-color: #dc2626; }
+.mini-btn.edit:hover { background: #fdf0cf; }
+.mini-btn.del:hover { background: #b91c1c; border-color: #b91c1c; }
+
+/* Composer in edit mode */
+.composer.editing { border-color: rgba(220,38,38,.35); box-shadow: 0 0 0 3px rgba(220,38,38,.08); }
+.composer.editing select[disabled] { background: #f4f4f2; color: #6e7773; cursor: not-allowed; }
 
 /* Social post embeds (imported from Instagram / FB / YouTube / TikTok / X) */
 iframe.embed {
