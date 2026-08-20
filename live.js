@@ -208,18 +208,168 @@
     renderStoriesHome();
     renderLivePage();
     bindComposer();
+    renderSocial();
+    bindSocial();
+    renderHomeSocial();
     var openBtn = document.getElementById("openComposer");
     var form = document.getElementById("liveComposer");
     if (openBtn && form) {
       openBtn.addEventListener("click", function () { form.classList.toggle("open"); });
     }
     if (location.hash === "#upload" && form) form.classList.add("open");
+    if (location.hash === "#social") {
+      var sf = document.getElementById("socialComposer");
+      if (sf) sf.classList.add("open");
+    }
     var close = document.getElementById("storyClose");
     if (close) close.addEventListener("click", closeStory);
     var next = document.getElementById("storyNext");
     var prev = document.getElementById("storyPrev");
     if (next) next.addEventListener("click", function () { storyIdx += 1; showStory(); });
     if (prev) prev.addEventListener("click", function () { storyIdx = Math.max(0, storyIdx - 1); showStory(); });
+  });
+
+  var SOCIAL_KEY = "cevoyage-social-v1";
+  function loadSocial() {
+    try {
+      var raw = localStorage.getItem(SOCIAL_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return { instagram: "", igPosts: "", facebook: "", twitter: "", youtube: "" };
+  }
+  function saveSocial(s) {
+    try { localStorage.setItem(SOCIAL_KEY, JSON.stringify(s)); } catch (e) {}
+  }
+
+  function igEmbedSrc(url) {
+    var m = String(url || "").match(/instagram\.com\/(p|reel|tv)\/([A-Za-z0-9_-]+)/);
+    if (!m) return "";
+    return "https://www.instagram.com/" + m[1] + "/" + m[2] + "/embed";
+  }
+  function ytEmbed(url) {
+    var u = String(url || "").trim();
+    if (!u) return "";
+    var vid = u.match(/(?:youtu\.be\/|v=|shorts\/)([A-Za-z0-9_-]{6,})/);
+    if (vid) return "https://www.youtube.com/embed/" + vid[1];
+    var list = u.match(/[?&]list=([A-Za-z0-9_-]+)/);
+    if (list) return "https://www.youtube.com/embed/videoseries?list=" + list[1];
+    var handle = u.match(/youtube\.com\/@([^/?#]+)/);
+    if (handle) return "https://www.youtube.com/embed?listType=user_uploads&list=" + encodeURIComponent(handle[1]);
+    var ch = u.match(/youtube\.com\/(?:c|user)\/([^/?#]+)/);
+    if (ch) return "https://www.youtube.com/embed?listType=user_uploads&list=" + encodeURIComponent(ch[1]);
+    return "";
+  }
+  function twUser(url) {
+    var m = String(url || "").match(/(?:x\.com|twitter\.com)\/([A-Za-z0-9_]+)/);
+    return m ? m[1] : String(url || "").replace(/^@/, "").trim();
+  }
+
+  function renderSocial() {
+    var bar = document.getElementById("socialBar");
+    var wall = document.getElementById("socialWall");
+    var s = loadSocial();
+    if (bar) {
+      bar.innerHTML =
+        '<a class="social-pill ig" href="' + (s.instagram || "https://www.instagram.com/") + '" target="_blank" rel="noopener"><i>IG</i> Instagram</a>' +
+        '<a class="social-pill fb" href="' + (s.facebook || "https://www.facebook.com/") + '" target="_blank" rel="noopener"><i>f</i> Facebook</a>' +
+        '<a class="social-pill tw" href="' + (s.twitter || "https://x.com/") + '" target="_blank" rel="noopener"><i>X</i> Twitter</a>' +
+        '<a class="social-pill yt" href="' + (s.youtube || "https://www.youtube.com/") + '" target="_blank" rel="noopener"><i>▶</i> YouTube</a>';
+    }
+    if (!wall) return;
+    var igLines = (s.igPosts || "").split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean);
+    var igHtml = igLines.length
+      ? '<div class="ig-grid">' + igLines.slice(0, 4).map(function (u) {
+          var src = igEmbedSrc(u);
+          return src ? '<iframe src="' + src + '" loading="lazy" allowtransparency="true"></iframe>' : "";
+        }).join("") + "</div>"
+      : '<div class="empty">Instagram post / Reel link එකක් Connect social එකෙන් දාන්න. Profile link එකෙන් page එක open වෙනවා.</div>';
+
+    var fbHtml = s.facebook
+      ? '<iframe src="https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(s.facebook) + '&tabs=timeline&width=500&height=520&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false" loading="lazy" allow="encrypted-media"></iframe>'
+      : '<div class="empty">Facebook page URL එක දාන්න — timeline එක මෙතන පේනවා.</div>';
+
+    var user = twUser(s.twitter);
+    var twHtml = user
+      ? '<a class="twitter-timeline" data-height="520" href="https://twitter.com/' + encodeURIComponent(user) + '">Tweets by @' + escapeHtml(user) + "</a>"
+      : '<div class="empty">X / Twitter profile URL එක දාන්න.</div>';
+
+    var yt = ytEmbed(s.youtube);
+    var ytHtml = yt
+      ? '<iframe src="' + yt + '" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+      : '<div class="empty">YouTube video, playlist හෝ @channel එක දාන්න.</div>';
+
+    wall.innerHTML =
+      '<div class="social-embed"><h3>Instagram</h3>' + igHtml + "</div>" +
+      '<div class="social-embed"><h3>Facebook</h3>' + fbHtml + "</div>" +
+      '<div class="social-embed"><h3>X / Twitter</h3>' + twHtml + "</div>" +
+      '<div class="social-embed"><h3>YouTube</h3>' + ytHtml + "</div>";
+
+    if (user && !document.getElementById("twWidgets")) {
+      var sc = document.createElement("script");
+      sc.id = "twWidgets";
+      sc.async = true;
+      sc.src = "https://platform.twitter.com/widgets.js";
+      document.body.appendChild(sc);
+    } else if (user && window.twttr && window.twttr.widgets) {
+      window.twttr.widgets.load(wall);
+    }
+  }
+
+  function bindSocial() {
+    var form = document.getElementById("socialComposer");
+    var open = document.getElementById("openSocial");
+    if (open && form) {
+      open.addEventListener("click", function () { form.classList.toggle("open"); });
+    }
+    if (!form) return;
+    var s = loadSocial();
+    var ig = document.getElementById("socIg");
+    var igp = document.getElementById("socIgPosts");
+    var fb = document.getElementById("socFb");
+    var tw = document.getElementById("socTw");
+    var yt = document.getElementById("socYt");
+    if (ig) ig.value = s.instagram || "";
+    if (igp) igp.value = s.igPosts || "";
+    if (fb) fb.value = s.facebook || "";
+    if (tw) tw.value = s.twitter || "";
+    if (yt) yt.value = s.youtube || "";
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      saveSocial({
+        instagram: ig.value.trim(),
+        igPosts: igp.value.trim(),
+        facebook: fb.value.trim(),
+        twitter: tw.value.trim(),
+        youtube: yt.value.trim()
+      });
+      form.classList.remove("open");
+      renderSocial();
+    });
+  }
+
+  function renderHomeSocial() {
+    var bar = document.getElementById("homeSocialBar");
+    if (!bar) return;
+    var s = loadSocial();
+    bar.innerHTML =
+      '<a class="social-pill ig" href="live.html#social"><i>IG</i> Instagram</a>' +
+      '<a class="social-pill fb" href="live.html#social"><i>f</i> Facebook</a>' +
+      '<a class="social-pill tw" href="live.html#social"><i>X</i> Twitter</a>' +
+      '<a class="social-pill yt" href="live.html#social"><i>▶</i> YouTube</a>';
+    if (s.instagram) bar.querySelector(".ig").href = s.instagram;
+    if (s.facebook) bar.querySelector(".fb").href = s.facebook;
+    if (s.twitter) bar.querySelector(".tw").href = s.twitter;
+    if (s.youtube) bar.querySelector(".yt").href = s.youtube;
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    renderSocial();
+    bindSocial();
+    renderHomeSocial();
+    if (location.hash === "#social") {
+      var f = document.getElementById("socialComposer");
+      if (f) f.classList.add("open");
+    }
   });
 
   window.CeLive = { load: load, save: save, renderStoriesHome: renderStoriesHome };

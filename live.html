@@ -34,9 +34,13 @@
   <div class="live-toolbar">
     <h1>Live from the island</h1>
     <button class="chip-btn live" type="button" id="openComposer">+ Upload</button>
+    <button class="chip-btn primary" type="button" id="openSocial">Connect social</button>
     <a class="chip-btn" href="index.html">Home</a>
   </div>
-  <p style="margin:-8px 0 18px;color:#6e7773;max-width:640px">Stories, photos, videos and blogs — Instagram-style. Use <strong>+ Upload</strong> on your phone to post a moment. Saved in this browser.</p>
+  <p style="margin:-8px 0 18px;color:#6e7773;max-width:720px">Instagram, Facebook, X (Twitter) සහ YouTube එකට post කරන updates මෙතනටත් එනවා. <strong>Connect social</strong> එකෙන් page/channel links දාන්න. Phone එකෙන් direct upload කරන්නත් පුළුවන්.</p>
+
+  <div class="social-bar" id="socialBar"></div>
+  <div class="social-wall" id="socialWall"></div>
 
   <form class="composer" id="liveComposer">
     <label>Type
@@ -57,6 +61,28 @@
     </label>
     <div class="row">
       <button class="chip-btn primary" type="submit">Publish</button>
+    </div>
+  </form>
+
+  <form class="composer" id="socialComposer">
+    <p style="margin:0 0 8px;font-size:14px;color:#4c5753">ඔයාගේ official pages connect කරන්න. Save කළාම Live wall එකේ feed පේනවා.</p>
+    <label>Instagram profile
+      <input id="socIg" placeholder="https://www.instagram.com/yourpage"/>
+    </label>
+    <label>Instagram post / Reel links (one per line — feed embeds)
+      <textarea id="socIgPosts" rows="3" placeholder="https://www.instagram.com/p/XXXX/&#10;https://www.instagram.com/reel/YYYY/"></textarea>
+    </label>
+    <label>Facebook page
+      <input id="socFb" placeholder="https://www.facebook.com/yourpage"/>
+    </label>
+    <label>X / Twitter profile
+      <input id="socTw" placeholder="https://x.com/yourhandle"/>
+    </label>
+    <label>YouTube channel, playlist or video
+      <input id="socYt" placeholder="https://www.youtube.com/@yourchannel or video URL"/>
+    </label>
+    <div class="row">
+      <button class="chip-btn primary" type="submit">Save &amp; show feeds</button>
     </div>
   </form>
 

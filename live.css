@@ -211,7 +211,87 @@
 .story-hit { position: absolute; top: 0; bottom: 0; width: 40%; z-index: 2; }
 .story-hit.next { right: 0; }
 
+.social-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0 0 22px;
+}
+.social-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(10,61,51,.1);
+  text-decoration: none;
+  color: #0a3d33;
+  font-weight: 700;
+  font-size: 13px;
+}
+.social-pill i {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-style: normal; font-size: 12px; font-weight: 800;
+}
+.social-pill.ig i { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
+.social-pill.fb i { background: #1877f2; }
+.social-pill.tw i { background: #0f1419; }
+.social-pill.yt i { background: #ff0000; }
+
+.social-wall {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.social-embed {
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(10,61,51,.08);
+  min-height: 220px;
+}
+.social-embed h3 {
+  margin: 0;
+  padding: 14px 16px 8px;
+  font-size: 14px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #0a3d33;
+}
+.social-embed iframe {
+  width: 100%;
+  border: 0;
+  min-height: 480px;
+  display: block;
+}
+.social-embed .empty {
+  padding: 24px 16px 28px;
+  color: #6e7773;
+  font-size: 14px;
+  line-height: 1.55;
+}
+.ig-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 0 12px 12px;
+}
+.ig-grid iframe { min-height: 420px; }
+
+.home-social {
+  padding: 28px 0 8px;
+  background: #fffdf8;
+}
+.home-social .social-bar { margin: 0; }
+
 @media (max-width: 900px) {
   .live-grid { grid-template-columns: 1fr; }
   .live-fab { right: 16px; bottom: 80px; }
+  .social-bar, .social-wall { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .social-bar, .social-wall { grid-template-columns: 1fr; }
 }
