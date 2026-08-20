@@ -307,3 +307,27 @@ README.md එකේ තියෙන plan එක:
 - [ ] Local preview එකේ හැම පිටුවක්ම බැලුවා
 - [ ] Sinhala/English/Tamil අකුරු කැඩිලා නෑ (UTF-8)
 - [ ] `git add . && git commit && git push`
+
+---
+
+## 8. 🔴 LIVE Page එක — Post link copy කරලා Social Media වලට දාන හැටි
+
+Live page එකේ (`live.html`) post එකක් publish කරාම **ඒ post එකටම වෙනම link එකක්** හැදෙනවා.
+
+### වැඩ කරන විදිහ
+1. `live.html` → **+ Upload** → post එකක් හදලා **Publish** කරන්න
+2. Publish කරාම පස්සේ මතක තියාගන්නවා: **"✅ Post live වුණා!"** panel එකක් එනවා — ඒකේ තමයි ඒ post එකේ link එක
+3. **🔗 Copy** බටන් එකෙන් link එක copy කරලා Facebook / WhatsApp / Instagram bio වලට දාන්න
+4. Feed එකේ එක එක post card එක යටත් **🔗 Copy link / WhatsApp / Facebook / 👁 Open** බටන් තියෙනවා
+5. Story එකක් open කරලා පහළ දකුණු කෙළවරේ **🔗 Copy link** එකෙන් story link එකත් copy කරන්න පුළුවන්
+6. Link එක open කරාම post එක **විශාල viewer** එකකින් පේනවා (+ Ce Voyage ලින්කුවකුත් එක්කම)
+
+### වැදගත් — link වර්ග 2ක් තියෙනවා
+| Post වර්ගය | Link එක වැඩ කරන්නේ |
+|---|---|
+| Text post / Internet photo URL එකක් තියෙන post | **හැමෝටම** වැඩ කරනවා (post data ම link එක ඇතුළේම encode වෙලා තියෙනවා) |
+| Phone එකෙන් upload කරපු photo/video | ඒ upload කරපු **browser එකේ විතරයි** වැඩ කරන්නේ (photo එක device එකේ save වෙලා තියෙන නිසා) |
+
+**Tip:** හැමෝටම පේන post එකක් ඕන නම් — photo එක internet URL එකකින් (unsplash/pexels) දාන්න, phone upload එකෙන් නෙමෙයි.
+
+**සටහන:** Posts ඔයාගේ browser එකේ save වෙනවා (localStorage). ඒ නිසා phone එකේ දාපු post එකක් අනිත් browser එකක පේන්නේ නෑ — ඒත් link එකේ data encode වෙලා තියෙන නිසා බොහෝ posts හැම තැනම වැඩ කරනවා.

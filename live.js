@@ -38,6 +38,200 @@
     });
   }
 
+  /* ---------- Live post links (copy / share / open) ---------- */
+  function postBaseUrl() {
+    var page = location.pathname.split("/").pop() || "live.html";
+    var here = location.href.split("#")[0];
+    if (/^live\.html$/i.test(page)) return here;
+    return here.replace(/[^/]*$/, "") + "live.html";
+  }
+
+  /* Encode the whole post into the link when it is small enough,
+     so anyone opening the link sees the post (even on another device). */
+  function encodePostPayload(p) {
+    var src = p.src || "";
+    if (/^data:/.test(src)) return null; /* phone-upload media is too big for a link */
+    var slim = {
+      id: p.id,
+      kind: p.kind || "post",
+      title: p.title || p.name || "",
+      body: p.body || p.caption || "",
+      type: p.type || "image",
+      src: src,
+      time: p.time || Date.now()
+    };
+    var json;
+    try { json = JSON.stringify(slim); } catch (e) { return null; }
+    if (!json || json.length > 2600) return null;
+    try { return btoa(unescape(encodeURIComponent(json))); } catch (e) { return null; }
+  }
+
+  function postLink(p) {
+    var enc = encodePostPayload(p);
+    return postBaseUrl() + "#post=" + (enc ? "d" + enc : p.id);
+  }
+
+  function shareTargets(p) {
+    var link = postLink(p);
+    var text = p.title || p.name || "Ce Voyage — live from Sri Lanka";
+    return {
+      link: link,
+      whatsapp: "https://wa.me/?text=" + encodeURIComponent(text + " — " + link),
+      facebook: "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link),
+      x: "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(link)
+    };
+  }
+
+  function copyText(text, msg) {
+    function ok() { toast(msg || "Link copied ✓"); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand("copy"); ok(); } catch (e) { window.prompt("Copy this link:", text); }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, fallback);
+    } else { fallback(); }
+  }
+
+  function toast(msg) {
+    document.querySelectorAll(".cv-toast").forEach(function (t) { t.remove(); });
+    var t = document.createElement("div");
+    t.className = "cv-toast";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(function () { t.classList.add("show"); });
+    setTimeout(function () {
+      t.classList.remove("show");
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 350);
+    }, 2400);
+  }
+
+  function actionRow(p) {
+    var wrap = document.createElement("div");
+    wrap.className = "post-actions";
+    var view = document.createElement("button");
+    view.type = "button";
+    view.className = "mini-btn view";
+    view.textContent = "👁 Open";
+    view.addEventListener("click", function () { openPostView(p); });
+    wrap.appendChild(view);
+    var copy = document.createElement("button");
+    copy.type = "button";
+    copy.className = "mini-btn copy";
+    copy.textContent = "🔗 Copy link";
+    copy.addEventListener("click", function () { copyText(postLink(p)); });
+    wrap.appendChild(copy);
+    var s = shareTargets(p);
+    var wa = document.createElement("a");
+    wa.className = "mini-btn wa";
+    wa.href = s.whatsapp;
+    wa.target = "_blank";
+    wa.rel = "noopener";
+    wa.textContent = "WhatsApp";
+    var fb = document.createElement("a");
+    fb.className = "mini-btn fb";
+    fb.href = s.facebook;
+    fb.target = "_blank";
+    fb.rel = "noopener";
+    fb.textContent = "Facebook";
+    wrap.appendChild(wa);
+    wrap.appendChild(fb);
+    if (navigator.share) {
+      var sh = document.createElement("button");
+      sh.type = "button";
+      sh.className = "mini-btn share";
+      sh.textContent = "↗ Share";
+      sh.addEventListener("click", function () {
+        navigator.share({ title: p.title || "Ce Voyage", text: p.body || p.caption || "", url: postLink(p) }).catch(function () {});
+      });
+      wrap.appendChild(sh);
+    }
+    return wrap;
+  }
+
+  function openPostView(p) {
+    closePostView();
+    var v = document.createElement("div");
+    v.className = "post-viewer";
+    v.id = "postViewer";
+    var media = "";
+    if (p.src && p.type === "video") media = '<video src="' + p.src + '" controls playsinline></video>';
+    else if (p.src) media = '<img alt="" src="' + p.src + '"/>';
+    v.innerHTML =
+      '<button class="close" type="button" aria-label="Close">×</button>' +
+      '<div class="pv-card"><div class="pv-media">' + media + "</div>" +
+      '<div class="pv-body">' +
+      '<div class="feed-meta">' + (p.kind === "blog" ? "Blog" : p.kind === "story" ? "Story" : "Live update") + " · " + new Date(p.time || Date.now()).toLocaleString() + "</div>" +
+      "<h2>" + escapeHtml(p.title || p.name || "Update") + "</h2>" +
+      "<p>" + escapeHtml(p.body || p.caption || "") + "</p>" +
+      '<div class="pv-actions"></div>' +
+      '<a class="pv-site" href="index.html">Ce Voyage — Home →</a>' +
+      "</div></div>";
+    document.body.appendChild(v);
+    v.querySelector(".pv-actions").appendChild(actionRow(p));
+    v.querySelector(".close").addEventListener("click", closePostView);
+    v.addEventListener("click", function (e) { if (e.target === v) closePostView(); });
+    document.addEventListener("keydown", escClosePost);
+    document.body.style.overflow = "hidden";
+  }
+  function escClosePost(e) { if (e.key === "Escape") closePostView(); }
+  function closePostView() {
+    var v = document.getElementById("postViewer");
+    if (v && v.parentNode) v.parentNode.removeChild(v);
+    document.removeEventListener("keydown", escClosePost);
+    document.body.style.overflow = "";
+  }
+
+  /* Open #post=... links (from social media) */
+  function handlePostLink() {
+    var m = location.hash.match(/#post=([A-Za-z0-9_+=/-]+)/);
+    if (!m) return;
+    var tok = m[1];
+    if (tok.charAt(0) === "d") {
+      try {
+        var p = JSON.parse(decodeURIComponent(escape(atob(tok.slice(1).replace(/-/g, "+").replace(/_/g, "/")))));
+        if (p && (p.title || p.body || p.src)) { openPostView(p); return; }
+      } catch (e) {}
+    }
+    var data = load();
+    var all = (data.posts || []).concat(data.blogs || []).concat(data.stories || []);
+    var found = null;
+    for (var i = 0; i < all.length; i++) if (all[i].id === tok) { found = all[i]; break; }
+    if (found) { openPostView(found); return; }
+    var main = document.querySelector(".live-page main") || document.querySelector("main");
+    if (main) {
+      var note = document.createElement("div");
+      note.className = "post-notfound";
+      note.innerHTML = "⚠️ මේ link එකේ post එක මේ browser එකේ save වෙලා නෑ. Post එක upload කරපු device එකෙන් open කරන්න.";
+      main.insertBefore(note, main.firstChild);
+    }
+  }
+
+  function showPublishDone(item) {
+    var box = document.getElementById("publishDone");
+    if (!box) return;
+    box.innerHTML = "";
+    var localOnly = item.src && /^data:/.test(item.src);
+    var card = document.createElement("div");
+    card.className = "publish-done";
+    card.innerHTML =
+      "<strong>✅ Post live වුණා!</strong> මේක තමයි මේ post එකේ link එක — copy කරලා social media වලට දාන්න:" +
+      '<div class="post-link-box"><input readonly value="' + postLink(item).replace(/"/g, "&quot;") + '"/><button type="button" class="mini-btn copy">🔗 Copy</button></div>' +
+      '<div class="row-actions"></div>' +
+      (localOnly ? '<p class="note">ℹ️ Phone එකෙන් upload කරපු photo එක තියෙන link වෙන browser වල පේන්නේ නෑ (photo එක මේ device එකේ තමයි save වෙලා තියෙන්නේ). හැමෝටම පේන link එකක් ඕන නම් photo URL එකක් දාන්න.</p>' : "");
+    box.appendChild(card);
+    card.querySelector(".post-link-box .copy").addEventListener("click", function () { copyText(postLink(item)); });
+    card.querySelector(".row-actions").appendChild(actionRow(item));
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
   function renderStoriesHome() {
     var row = document.getElementById("homeStoriesRow");
     if (!row) return;
@@ -90,6 +284,8 @@
           : '<img alt="" src="' + p.src + '"/>';
       }
       el.innerHTML = media + '<div class="feed-body"><div class="feed-meta">Live update · ' + new Date(p.time).toLocaleString() + "</div><h3>" + escapeHtml(p.title || "Update") + "</h3><p>" + escapeHtml(p.body || "") + "</p></div>";
+      var pbody = el.querySelector(".feed-body");
+      if (pbody) pbody.appendChild(actionRow(p));
       feed.appendChild(el);
     });
 
@@ -99,6 +295,7 @@
         var el = document.createElement("article");
         el.className = "feed-card blog-card";
         el.innerHTML = '<div class="feed-meta">Blog</div><h3>' + escapeHtml(p.title) + "</h3><p>" + escapeHtml(p.body) + "</p>";
+        el.appendChild(actionRow(p));
         blogs.appendChild(el);
       });
     }
@@ -112,6 +309,7 @@
 
   var storyIdx = 0;
   var storyTimer;
+  var currentStoryItem = null;
   function openStory(i) {
     var data = load();
     var viewer = document.getElementById("storyViewer");
@@ -131,6 +329,7 @@
     var data = load();
     var s = data.stories[storyIdx];
     if (!s) { closeStory(); return; }
+    currentStoryItem = s;
     var img = document.getElementById("storyMediaImg");
     var vid = document.getElementById("storyMediaVideo");
     var cap = document.getElementById("storyCaption");
@@ -193,6 +392,7 @@
         form.classList.remove("open");
         renderLivePage();
         renderStoriesHome();
+        showPublishDone(item);
       }
       if (file) {
         fileToDataUrl(file).then(function (url) {
@@ -211,6 +411,7 @@
     renderSocial();
     bindSocial();
     renderHomeSocial();
+    handlePostLink();
     var openBtn = document.getElementById("openComposer");
     var form = document.getElementById("liveComposer");
     if (openBtn && form) {
@@ -227,6 +428,10 @@
     var prev = document.getElementById("storyPrev");
     if (next) next.addEventListener("click", function () { storyIdx += 1; showStory(); });
     if (prev) prev.addEventListener("click", function () { storyIdx = Math.max(0, storyIdx - 1); showStory(); });
+    var storyShare = document.getElementById("storyShare");
+    if (storyShare) storyShare.addEventListener("click", function () {
+      if (currentStoryItem) copyText(postLink(currentStoryItem), "Story link copied ✓");
+    });
   });
 
   var SOCIAL_KEY = "cevoyage-social-v1";
