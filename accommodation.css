@@ -1,0 +1,507 @@
+/* Ce Voyage — Recommended Accommodation page
+   Follows the styles.css design tokens (forest / leaf / gold / sand). */
+
+/* ---- Category filter chips ---- */
+.stay-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto 34px;
+  max-width: 860px;
+}
+
+.stay-filter {
+  border: 1px solid rgba(10, 61, 51, 0.25);
+  background: #fff;
+  color: #0a3d33;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font: 600 14px/1 "DM Sans", sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.stay-filter .count {
+  font-size: 11px;
+  background: rgba(20, 118, 93, 0.12);
+  color: #14765d;
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.stay-filter:hover {
+  border-color: #14765d;
+  transform: translateY(-2px);
+}
+
+.stay-filter.active {
+  background: #0a3d33;
+  color: #f3ecdf;
+  border-color: #0a3d33;
+}
+
+.stay-filter.active .count {
+  background: rgba(213, 170, 86, 0.25);
+  color: #d5aa56;
+}
+
+/* ---- Category intro ---- */
+.stay-cat-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: -14px auto 34px;
+  color: rgba(7, 42, 36, 0.72);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ---- Stays grid ---- */
+.stay-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 26px;
+  margin-bottom: 20px;
+}
+
+.stay-card {
+  background: #fff;
+  border: 1px solid rgba(10, 61, 51, 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 34px rgba(7, 42, 36, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stay-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 44px rgba(7, 42, 36, 0.13);
+}
+
+.stay-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #e7efe9;
+}
+
+.stay-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.stay-card:hover .stay-card-media img {
+  transform: scale(1.05);
+}
+
+.stay-cat-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(7, 42, 36, 0.82);
+  color: #f3ecdf;
+  backdrop-filter: blur(6px);
+  font: 600 12px/1 "DM Sans", sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border-radius: 999px;
+}
+
+.stay-price {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #d5aa56;
+  color: #072a24;
+  font: 700 12px/1.2 "DM Sans", sans-serif;
+  padding: 7px 12px;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.stay-card-body {
+  padding: 20px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.stay-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.stay-card h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  color: #072a24;
+  margin: 0 0 4px;
+}
+
+.stay-rating {
+  white-space: nowrap;
+  font: 700 13px/1 "DM Sans", sans-serif;
+  color: #0a3d33;
+  background: rgba(20, 118, 93, 0.1);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.stay-rating b {
+  color: #b8862f;
+}
+
+.stay-loc {
+  font-size: 13px;
+  color: rgba(7, 42, 36, 0.6);
+  margin: 2px 0 10px;
+}
+
+.stay-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(7, 42, 36, 0.78);
+  margin: 0 0 14px;
+  flex: 1;
+}
+
+.stay-mini-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.stay-mini-highlights span {
+  font: 600 11.5px/1 "DM Sans", sans-serif;
+  color: #14765d;
+  background: rgba(20, 118, 93, 0.09);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.stay-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stay-card-actions .btn-gold,
+.stay-card-actions .btn-ghost,
+.stay-card-actions .stay-btn-map {
+  padding: 11px 16px;
+  font-size: 13px;
+  border-radius: 999px;
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Google Maps button */
+.stay-btn-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #0a3d33;
+  color: #f3ecdf;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.stay-btn-map:hover {
+  background: #14765d;
+}
+
+.stay-btn-map svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+/* ---- Details modal ---- */
+.stay-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 42, 36, 0.62);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.stay-modal-backdrop.open {
+  display: flex;
+}
+
+.stay-modal {
+  background: #fbf8f1;
+  border-radius: 22px;
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  animation: stayModalIn 0.3s ease;
+}
+
+@keyframes stayModalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+.stay-modal-media {
+  aspect-ratio: 16 / 8.5;
+  overflow: hidden;
+  border-radius: 22px 22px 0 0;
+  background: #e7efe9;
+}
+
+.stay-modal-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.stay-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(7, 42, 36, 0.78);
+  color: #f3ecdf;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s ease;
+}
+
+.stay-modal-close:hover {
+  background: #14765d;
+}
+
+.stay-modal-body {
+  padding: 26px 28px 30px;
+}
+
+.stay-modal-body h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 28px;
+  color: #072a24;
+  margin: 0 0 6px;
+}
+
+.stay-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 13.5px;
+  color: rgba(7, 42, 36, 0.65);
+  margin-bottom: 14px;
+}
+
+.stay-modal-meta b {
+  color: #0a3d33;
+}
+
+.stay-modal-section {
+  margin-top: 18px;
+}
+
+.stay-modal-section h4 {
+  font: 700 13px/1 "DM Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #14765d;
+  margin: 0 0 10px;
+}
+
+.stay-modal-section p {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(7, 42, 36, 0.8);
+  margin: 0;
+}
+
+.stay-modal-section ul {
+  margin: 0;
+  padding: 0 0 0 2px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 18px;
+}
+
+.stay-modal-section ul li {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(7, 42, 36, 0.8);
+  padding-left: 20px;
+  position: relative;
+}
+
+.stay-modal-section ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #d5aa56;
+  font-weight: 700;
+}
+
+.stay-facility-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.stay-facility-chips span {
+  font: 600 12px/1 "DM Sans", sans-serif;
+  color: #0a3d33;
+  border: 1px solid rgba(10, 61, 51, 0.22);
+  background: #fff;
+  padding: 7px 12px;
+  border-radius: 999px;
+}
+
+.stay-tips {
+  background: rgba(213, 170, 86, 0.13);
+  border-left: 3px solid #d5aa56;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.stay-tips p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(7, 42, 36, 0.82);
+  margin: 0;
+}
+
+.stay-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.stay-modal-actions .btn-gold,
+.stay-modal-actions .stay-btn-map,
+.stay-modal-actions .btn-ghost {
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .stay-modal-section ul {
+    grid-template-columns: 1fr;
+  }
+  .stay-modal-body {
+    padding: 20px 18px 24px;
+  }
+}
+
+/* ---- CTA banner ---- */
+.stay-cta-banner {
+  margin: 44px 0 10px;
+  padding: 56px 30px;
+  background:
+    linear-gradient(180deg, rgba(3, 26, 21, 0.5), rgba(3, 26, 21, 0.72)),
+    url("images/stays/hero.jpg") center / cover no-repeat;
+  border-radius: 26px;
+  color: white;
+  text-align: center;
+}
+
+.stay-cta-banner h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(26px, 4vw, 38px);
+  margin: 0 0 12px;
+}
+
+.stay-cta-banner p {
+  max-width: 560px;
+  margin: 0 auto 22px;
+  opacity: 0.92;
+  line-height: 1.7;
+}
+
+/* ---- "Need a stay?" strip on trip.html ---- */
+.stays-strip {
+  margin-top: 26px;
+  background: linear-gradient(120deg, #0a3d33 0%, #072a24 100%);
+  border-radius: 22px;
+  padding: 26px 24px;
+  color: #f3ecdf;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+  justify-content: space-between;
+}
+
+.stays-strip h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  margin: 0 0 4px;
+  color: #f3ecdf;
+}
+
+.stays-strip p {
+  margin: 0;
+  font-size: 13.5px;
+  opacity: 0.8;
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+.stays-strip-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stays-strip-cats a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(243, 236, 223, 0.1);
+  border: 1px solid rgba(243, 236, 223, 0.25);
+  color: #f3ecdf;
+  border-radius: 999px;
+  padding: 9px 16px;
+  font: 600 12.5px/1 "DM Sans", sans-serif;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.stays-strip-cats a:hover {
+  background: #d5aa56;
+  border-color: #d5aa56;
+  color: #072a24;
+  transform: translateY(-2px);
+}
