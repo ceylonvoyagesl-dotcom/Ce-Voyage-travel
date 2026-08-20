@@ -157,22 +157,35 @@ section#contact, .contact-section {
 .featured-bg-slide {
   position: absolute;
   inset: 0;
+  background: #072a24;
   background-size: cover;
   background-position: center;
   opacity: 0;
   transform: scale(1.06);
   transition: opacity 1.4s ease, transform 7s ease;
 }
+.featured-bg-slide .featured-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
 .featured-bg-slide.is-active {
   opacity: 1;
   transform: scale(1);
   z-index: 1;
 }
+.featured-bg-slide.is-active .featured-video {
+  opacity: 1;
+}
 .featured-bg-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(180deg, rgba(255,253,248,0.42), rgba(255,253,248,0.28));
+  background: linear-gradient(180deg, rgba(7,42,36,0.55), rgba(7,42,36,0.28));
 }
 .featured-section > .container {
   position: relative;
@@ -180,8 +193,8 @@ section#contact, .contact-section {
 }
 .featured-section h2,
 .featured-section .section-kicker {
-  color: #0a3d33 !important;
-  text-shadow: 0 1px 10px rgba(255,255,255,0.55);
+  color: #ffffff !important;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.45);
 }
 </style>
 
@@ -906,6 +919,8 @@ section#contact, .contact-section{
 <a data-i18n="navMap" href="#map">Map</a>
 <a data-i18n="navGuide" href="guide.html">Travel Guide</a>
 <a href="tours.html">10-Day Tours</a>
+<a href="vehicles.html">Vehicles</a>
+<a href="team.html">Guides &amp; Team</a>
 <a href="trip.html">My Trip</a>
 <a data-i18n="navContact" href="#contact">Contact</a>
 <a class="mobile-whatsapp-cta" href="https://wa.me/33744284269" rel="noopener" target="_blank">
@@ -962,11 +977,6 @@ section#contact, .contact-section{
       <a class="v3-primary-button" href="#route"><span data-i18n="searchButton">Explore</span><b>↗</b></a>
       <a class="v3-secondary-button" href="https://wa.me/33744284269" rel="noopener" target="_blank">WhatsApp France</a>
     </div>
-    <div class="cinema-slide-meta reveal delay-4">
-      <span class="cinema-live-dot"></span>
-      <span id="cinemaLabel">Sigiriya</span>
-      <span class="cinema-tag" id="cinemaTag">Heritage rock</span>
-    </div>
     <div class="cinema-dots" id="cinemaDots" aria-label="Slideshow controls"></div>
   </div>
 
@@ -1018,10 +1028,36 @@ section#contact, .contact-section{
 </section>
 <section class="featured-section v3-section featured-wide" id="featured">
 <div class="featured-bg-slideshow" aria-hidden="true">
-  <div class="featured-bg-slide is-active" style="background-image:url('images/slide-city.jpg')"></div>
-  <div class="featured-bg-slide" style="background-image:url('images/slide-kandy.jpg')"></div>
-  <div class="featured-bg-slide" style="background-image:url('images/slide-mountains.jpg')"></div>
-  <div class="featured-bg-slide" style="background-image:url('images/slide-map.jpg')"></div>
+  <div class="featured-bg-slide is-active">
+    <video class="featured-video" muted loop playsinline preload="metadata"
+      poster="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Tooth_Relic_Temple_Kandy_Sri_Lanka.jpg/1200px-Tooth_Relic_Temple_Kandy_Sri_Lanka.jpg">
+      <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6f/Temple_of_the_Tooth_Kandy.webm/Temple_of_the_Tooth_Kandy.webm.480p.vp9.webm" type="video/webm"/>
+    </video>
+  </div>
+  <div class="featured-bg-slide">
+    <video class="featured-video" muted loop playsinline preload="metadata"
+      poster="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Haputale%2C_Sri_Lanka%2C_Tea_plantations_in_clouds.jpg/1200px-Haputale%2C_Sri_Lanka%2C_Tea_plantations_in_clouds.jpg">
+      <source src="https://videos.pexels.com/video-files/4260171/4260171-uhd_2560_1440_30fps.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="featured-bg-slide">
+    <video class="featured-video" muted loop playsinline preload="metadata"
+      poster="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Nine_arch_bridge%2C_Ella%2C_Sri_lanka.jpg/1200px-Nine_arch_bridge%2C_Ella%2C_Sri_lanka.jpg">
+      <source src="https://videos.pexels.com/video-files/4027449/4027449-uhd_2560_1440_30fps.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="featured-bg-slide">
+    <video class="featured-video" muted loop playsinline preload="metadata"
+      poster="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Colombo_Skyline_Jan_2022.jpg/1200px-Colombo_Skyline_Jan_2022.jpg">
+      <source src="https://videos.pexels.com/video-files/18993612/18993612-uhd_2560_1440_30fps.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="featured-bg-slide">
+    <video class="featured-video" muted loop playsinline preload="metadata"
+      poster="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/SL_Kandy_asv2020-01_img34_Sacred_Tooth_Temple.jpg/1200px-SL_Kandy_asv2020-01_img34_Sacred_Tooth_Temple.jpg">
+      <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/5/50/Tuk-tuks_in_Sri_Lanka.webm/Tuk-tuks_in_Sri_Lanka.webm.480p.vp9.webm" type="video/webm"/>
+    </video>
+  </div>
   <div class="featured-bg-overlay"></div>
 </div>
 
@@ -1097,6 +1133,55 @@ section#contact, .contact-section{
 <div class="card-shade"></div>
 <div class="feature-card-content"><span class="card-tag">North</span><h3>Jaffna</h3><p>Culture, islands and lagoon life.</p><span class="round-link">↗</span></div>
 </a></article>
+<article class="feature-card" data-searchable="negombo beach">
+<a class="feature-card-link" href="places/negombo.html">
+<img alt="Negombo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Negombo%2C_Beach%2C_2025-08_CN-01.jpg/1000px-Negombo%2C_Beach%2C_2025-08_CN-01.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Beach</span><h3>Negombo</h3><p>First beach welcome by the airport.</p><span class="round-link">↗</span></div>
+</a></article>
+<article class="feature-card" data-searchable="hikkaduwa beach">
+<a class="feature-card-link" href="places/hikkaduwa.html">
+<img alt="Hikkaduwa" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Hikkaduwa_beach_beauty.jpg/1000px-Hikkaduwa_beach_beauty.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Beach</span><h3>Hikkaduwa</h3><p>Coral sanctuary and surf town.</p><span class="round-link">↗</span></div>
+</a></article>
+<article class="feature-card" data-searchable="kalpitiya kitesurf">
+<a class="feature-card-link" href="places/kalpitiya.html">
+<img alt="Kalpitiya" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Kalpitiya_Beach_Sunset.jpg/1000px-Kalpitiya_Beach_Sunset.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Kitesurf</span><h3>Kalpitiya</h3><p>Lagoons, kites and dolphin seas.</p><span class="round-link">↗</span></div>
+</a></article>
+<article class="feature-card" data-searchable="pinnawala elephants">
+<a class="feature-card-link" href="places/pinnawala.html">
+<img alt="Pinnawala" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Pinnawala_Elephant_Orphanage_-_panoramio.jpg/1000px-Pinnawala_Elephant_Orphanage_-_panoramio.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Wildlife</span><h3>Pinnawala</h3><p>Elephants bathing in the river.</p><span class="round-link">↗</span></div>
+</a></article>
+<article class="feature-card" data-searchable="ambuluwawa viewpoint">
+<a class="feature-card-link" href="places/ambuluwawa.html">
+<img alt="Ambuluwawa" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Ambuluwawa_tower_srilanka.jpg/1000px-Ambuluwawa_tower_srilanka.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Viewpoint</span><h3>Ambuluwawa</h3><p>The spiral tower above the clouds.</p><span class="round-link">↗</span></div>
+</a></article>
+<article class="feature-card" data-searchable="sinharaja rainforest">
+<a class="feature-card-link" href="places/sinharaja.html">
+<img alt="Sinharaja" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/SL_Sinharaja_Forest_asv2020-01_img08.jpg/1000px-SL_Sinharaja_Forest_asv2020-01_img08.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Rainforest</span><h3>Sinharaja</h3><p>Last primary rainforest, full of mist.</p><span class="round-link">↗</span></div>
+</a></article>
+<article class="feature-card" data-searchable="udawalawe elephants">
+<a class="feature-card-link" href="places/udawalawe.html">
+<img alt="Udawalawe" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Udawalawe_Elephant_Transit_Home_2017-10-27_%288%29.jpg/1000px-Udawalawe_Elephant_Transit_Home_2017-10-27_%288%29.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Wildlife</span><h3>Udawalawe</h3><p>Wild elephants, guaranteed-ish.</p><span class="round-link">↗</span></div>
+</a></article>
+<article class="feature-card" data-searchable="riverston knuckles">
+<a class="feature-card-link" href="places/riverston.html">
+<img alt="Riverston" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Riverston_view_2.jpg/1000px-Riverston_view_2.jpg"/>
+<div class="card-shade"></div>
+<div class="feature-card-content"><span class="card-tag">Scenic</span><h3>Riverston</h3><p>The Knuckles' hairpin-road country.</p><span class="round-link">↗</span></div>
+</a></article>
+
 </div>
 <p class="featured-more"><a href="places/index.html">View all places →</a></p>
 
@@ -1117,54 +1202,79 @@ section#contact, .contact-section{
 </div>
 </div>
 <div class="region-grid" id="regionGrid">
-<article class="region-card" data-category="culture" data-searchable="central province kandy sigiriya dambulla matale culture">
+<a class="region-card" href="central-province.html" data-category="culture" data-searchable="central province kandy sigiriya dambulla matale culture">
 <div class="region-number">01</div>
 <div>
 <h3 data-i18n="centralProvince">Central Province</h3>
 <p data-i18n="centralDesc">Sacred Kandy, misty highlands and ancient cave temples.</p>
 </div>
 <span>↗</span>
-</article>
-<article class="region-card" data-category="coast" data-searchable="southern province galle mirissa matara hambantota coast beach">
+</a>
+<a class="region-card" href="southern-province.html" data-category="coast" data-searchable="southern province galle mirissa matara hambantota coast beach">
 <div class="region-number">02</div>
 <div>
 <h3 data-i18n="southernProvince">Southern Province</h3>
 <p data-i18n="southernDesc">Historic Galle, surf towns, whale country and golden beaches.</p>
 </div>
 <span>↗</span>
-</article>
-<article class="region-card" data-category="nature" data-searchable="uva province ella badulla waterfalls mountains tea nature">
+</a>
+<a class="region-card" href="uva-province.html" data-category="nature" data-searchable="uva province ella badulla waterfalls mountains tea nature">
 <div class="region-number">03</div>
 <div>
 <h3 data-i18n="uvaProvince">Uva Province</h3>
 <p data-i18n="uvaDesc">Mountain viewpoints, waterfalls, tea estates and quiet villages.</p>
 </div>
 <span>↗</span>
-</article>
-<article class="region-card" data-category="culture" data-searchable="north central anuradhapura polonnaruwa mihintale ancient city">
+</a>
+<a class="region-card" href="north-central-province.html" data-category="culture" data-searchable="north central anuradhapura polonnaruwa mihintale ancient city">
 <div class="region-number">04</div>
 <div>
 <h3 data-i18n="northCentralProvince">North Central Province</h3>
 <p data-i18n="northCentralDesc">The heartland of Sri Lanka's ancient royal civilisation.</p>
 </div>
 <span>↗</span>
-</article>
-<article class="region-card" data-category="coast" data-searchable="eastern province trincomalee pasikuda arugam bay batticaloa beach">
+</a>
+<a class="region-card" href="eastern-province.html" data-category="coast" data-searchable="eastern province trincomalee pasikuda arugam bay batticaloa beach">
 <div class="region-number">05</div>
 <div>
 <h3 data-i18n="easternProvince">Eastern Province</h3>
 <p data-i18n="easternDesc">Calm bays, coral seas, temples and laid-back coastal life.</p>
 </div>
 <span>↗</span>
-</article>
-<article class="region-card" data-category="nature" data-searchable="sabaragamuwa ratnapura sinharaja adam's peak gems forest">
+</a>
+<a class="region-card" href="sabaragamuwa-province.html" data-category="nature" data-searchable="sabaragamuwa ratnapura sinharaja adam's peak gems forest">
 <div class="region-number">06</div>
 <div>
 <h3 data-i18n="sabaragamuwaProvince">Sabaragamuwa Province</h3>
 <p data-i18n="sabaragamuwaDesc">Rainforests, sacred peaks, rivers and Sri Lanka's gem country.</p>
 </div>
 <span>↗</span>
-</article>
+</a>
+<a class="region-card" href="western-province.html" data-category="coast" data-searchable="western province colombo negombo kalutara city coast">
+<div class="region-number">07</div>
+<div>
+<h3>Western Province</h3>
+<p>Colombo's skyline, Negombo's beaches and the Bolgoda lagoon.</p>
+</div>
+<span>↗</span>
+</a>
+<a class="region-card" href="northern-province.html" data-category="culture" data-searchable="northern province jaffna islands tamil culture">
+<div class="region-number">08</div>
+<div>
+<h3>Northern Province</h3>
+<p>Jaffna's temples, islands and the proud Tamil heartland.</p>
+</div>
+<span>↗</span>
+</a>
+<a class="region-card" href="north-western-province.html" data-category="nature" data-searchable="north western province kalpitiya wilpattu kitesurf nature">
+<div class="region-number">09</div>
+<div>
+<h3>North Western Province</h3>
+<p>Kitesurf lagoons, coconut coast and the gates of Wilpattu.</p>
+</div>
+<span>↗</span>
+</a>
+
 </div>
 </div>
 </section>
@@ -1366,6 +1476,8 @@ section#contact, .contact-section{
 <a data-i18n="weather" href="guide.html#weather">Weather</a>
 <a data-i18n="transport" href="guide.html#transport">Transport</a>
 <a data-i18n="safety" href="guide.html#culture">Safety &amp; Etiquette</a>
+<a href="vehicles.html">Vehicles &amp; Fleet</a>
+<a href="team.html">Guides &amp; Team</a>
 </div>
 <div>
 <h4 data-i18n="languages">Langues</h4>

@@ -440,16 +440,27 @@
   })();
 
 
-  // Featured section background slideshow
+  // Featured section background video slideshow
   (function () {
-    var slides = document.querySelectorAll(".featured-bg-slide");
+    var slides = Array.prototype.slice.call(document.querySelectorAll(".featured-bg-slide"));
     if (!slides.length) return;
     var i = 0;
+    function show(idx) {
+      slides.forEach(function (s) {
+        s.classList.remove("is-active");
+        var v = s.querySelector("video");
+        if (v) v.pause();
+      });
+      var active = slides[idx];
+      active.classList.add("is-active");
+      var av = active.querySelector("video");
+      if (av) { av.play().catch(function () {}); }
+    }
+    show(0);
     setInterval(function () {
-      slides[i].classList.remove("is-active");
       i = (i + 1) % slides.length;
-      slides[i].classList.add("is-active");
-    }, 5000);
+      show(i);
+    }, 7000);
   })();
 
   // ---------- Trip badge sync (My Trip link) ----------

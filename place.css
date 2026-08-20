@@ -455,3 +455,40 @@
   border-radius: 12px;
   padding: 10px 14px;
 }
+/* ---- Sub-places & special info ---- */
+.subplace-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.subplace-card {
+  background: #fff;
+  border: 1px solid rgba(10, 61, 51, .09);
+  border-left: 4px solid #14765d;
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 8px 26px rgba(10, 61, 51, .06);
+}
+.subplace-card h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 17px;
+  margin: 0 0 6px;
+  color: #0a3d33;
+}
+.subplace-card p { margin: 0; font-size: 13px; color: #4c5753; line-height: 1.55; }
+.specialinfo-section { margin: 26px 0 34px; }
+.specialinfo-section .place-section-title { margin-bottom: 12px; }
+.specialinfo-section .check-list {
+  background: #fff;
+  border: 1px solid rgba(10, 61, 51, .08);
+  border-radius: 16px;
+  padding: 8px 18px;
+  box-shadow: 0 10px 30px rgba(10, 61, 51, .06);
+}
+.photo-credit {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: #8a938e;
+  text-align: right;
+}
