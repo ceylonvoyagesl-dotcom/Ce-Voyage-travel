@@ -123,6 +123,7 @@
 
   // ---------- Video (Pexels stock clips, source fallback chain) ----------
   function videoUrls(id) {
+    if (/^https?:\/\//.test(String(id))) return [id]; // full URL (e.g. Commons)
     var base = "https://videos.pexels.com/video-files/" + id + "/" + id;
     return [
       base + "-uhd_2560_1440_30fps.mp4",
@@ -167,6 +168,45 @@
         v.closest(".place-video-frame").hidden = true;
       });
     }
+  }
+
+  // ---------- Sub-places & special info ----------
+  function renderSubplaces(place) {
+    var anchor = document.getElementById("activities");
+    if (!anchor || !place.subplaces || !place.subplaces.length) return;
+    var section = document.createElement("section");
+    section.className = "subplace-section";
+    var html = '<h2 class="place-section-title">Sub-places &amp; sights</h2><div class="subplace-grid">';
+    place.subplaces.forEach(function (sp) {
+      html += '<div class="subplace-card"><h3>' + escapeHtml(sp.name) + "</h3><p>" + escapeHtml(sp.desc) + "</p></div>";
+    });
+    html += "</div>";
+    section.innerHTML = html;
+    anchor.parentNode.insertBefore(section, anchor);
+  }
+
+  function renderSpecialInfo(place) {
+    if (!place.specialInfo || !place.specialInfo.length) return;
+    var meta = document.querySelector(".meta-grid");
+    if (!meta) return;
+    var section = document.createElement("section");
+    section.className = "specialinfo-section";
+    var html = '<h2 class="place-section-title">Good to know</h2><ul class="check-list">';
+    place.specialInfo.forEach(function (t) {
+      html += "<li>" + escapeHtml(t) + "</li>";
+    });
+    html += "</ul>";
+    section.innerHTML = html;
+    meta.insertAdjacentElement("afterend", section);
+  }
+
+  function renderPhotoCredit() {
+    var gallery = document.getElementById("placeGallery");
+    if (!gallery) return;
+    var p = document.createElement("p");
+    p.className = "photo-credit";
+    p.textContent = "Photos: Wikimedia Commons contributors · Ce Voyage";
+    gallery.insertAdjacentElement("afterend", p);
   }
 
   function initPlacePage() {
@@ -239,6 +279,9 @@
     renderCart();
     syncActivityButtons();
     renderVideo(place);
+    renderSubplaces(place);
+    renderSpecialInfo(place);
+    renderPhotoCredit();
     updateTripBadges();
   }
 

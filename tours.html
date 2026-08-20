@@ -150,6 +150,16 @@
       </div>
     </section>
 
+    <section id="customize" class="guide-section-block">
+      <h2 class="place-section-title">Make it yours — any place, any activity</h2>
+      <p class="place-summary">The 10 days above are the classic loop. Tap <strong>+ Add</strong> on any destination below to put it in your trip card — open its page for the full activity list, then send the whole plan on WhatsApp from <a href="trip.html" style="font-weight:700;color:#14765d">My Trip</a>. We rebuild the route around YOU.</p>
+      <div class="quick-place-grid" id="tourPlaceGrid"></div>
+      <div class="trip-planner-actions" style="margin-top:20px">
+        <button class="btn-gold" type="button" id="addFullTourBtn">Add the full 10-day route to My Trip</button>
+        <a class="btn-ghost" href="trip.html">Open My Trip →</a>
+      </div>
+    </section>
+
     <section id="included" class="guide-section-block">
       <h2 class="place-section-title">What's included</h2>
       <div class="guide-card-grid">
@@ -254,8 +264,92 @@
   <span>WA</span>
   <div><small>WhatsApp France</small><strong>+33 7 44 28 42 69</strong></div>
 </a>
+<script src="places-data.js"></script>
 <script>
 (function(){
+  var CART_KEY = "cevoyage-trip";
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+    catch (e) { return []; }
+  }
+  function saveCart(items) {
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
+    syncBadges();
+  }
+  function syncBadges() {
+    var n = getCart().length;
+    document.querySelectorAll("[data-trip-badge]").forEach(function (b) {
+      b.textContent = n;
+      b.hidden = !n;
+    });
+  }
+  function hasPlace(pid) {
+    return getCart().some(function (i) { return i.placeId === pid && i.activityId === "place-visit"; });
+  }
+  function togglePlace(pid, p) {
+    var cart = getCart();
+    if (hasPlace(pid)) {
+      saveCart(cart.filter(function (i) { return !(i.placeId === pid && i.activityId === "place-visit"); }));
+    } else {
+      cart.push({ placeId: pid, placeName: p.name, activityId: "place-visit",
+                  activityName: "Visit " + p.name, type: p.tag, duration: p.duration });
+      saveCart(cart);
+    }
+    renderGrid();
+  }
+
+  // quick place grid
+  function renderGrid() {
+    var grid = document.getElementById("tourPlaceGrid");
+    if (!grid || !window.CE_PLACES) return;
+    grid.innerHTML = "";
+    Object.keys(window.CE_PLACES).forEach(function (pid) {
+      var p = window.CE_PLACES[pid];
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "quick-place-chip" + (hasPlace(pid) ? " added" : "");
+      chip.innerHTML = "<span><strong>" + p.name + "</strong><small>" + p.tag + "</small></span><b>" + (hasPlace(pid) ? "✓ Added" : "+ Add") + "</b>";
+      chip.addEventListener("click", function () { togglePlace(pid, p); });
+      grid.appendChild(chip);
+    });
+  }
+
+  // add full 10-day route
+  var fullBtn = document.getElementById("addFullTourBtn");
+  if (fullBtn) {
+    fullBtn.addEventListener("click", function () {
+      var cart = getCart();
+      var days = [
+        ["negombo", "Day 1 — Welcome & beach night in Negombo"],
+        ["sigiriya", "Day 2 — Sigiriya sunset climb"],
+        ["dambulla", "Day 3 — Dambulla caves & Minneriya elephants"],
+        ["kandy", "Day 4 — Kandy & the Temple of the Tooth"],
+        ["nuwara-eliya", "Day 5 — Train into the tea country"],
+        ["ella", "Day 6 — Ella: Nine Arch & Little Adam's Peak"],
+        ["yala", "Day 7 — Yala leopard safari"],
+        ["mirissa", "Day 8 — South coast beaches & Galle Fort"],
+        ["colombo", "Day 9 — Colombo city day"],
+        ["colombo", "Day 10 — Departure"]
+      ];
+      var added = 0;
+      days.forEach(function (d) {
+        var pid = d[0], label = d[1];
+        var p = window.CE_PLACES[pid];
+        if (!p) return;
+        var key = "tour::" + label;
+        if (cart.some(function (i) { return i.activityId === key; })) return;
+        cart.push({ placeId: pid, placeName: p.name, activityId: key,
+                    activityName: label, type: "10-Day Tour", duration: p.duration });
+        added++;
+      });
+      saveCart(cart);
+      alert("The full 10-day route (" + added + " days) is now in your trip card. Open My Trip to send it on WhatsApp.");
+    });
+  }
+
+  try { syncBadges(); } catch (e) {}
+  renderGrid();
+
   try {
     var n = JSON.parse(localStorage.getItem("cevoyage-trip") || "[]").length;
     document.querySelectorAll("[data-trip-badge]").forEach(function (b) {

@@ -24,6 +24,8 @@
       <a href="experiences/index.html">Experiences</a>
       <a href="guide.html">Travel Guide</a>
       <a href="tours.html">10-Day Tours</a>
+      <a href="vehicles.html">Vehicles</a>
+      <a href="team.html">Team</a>
       <a href="index.html#contact">Contact</a>
     </nav>
     <div class="nav-actions">
@@ -53,6 +55,12 @@
 
 <main class="container place-layout">
   <div>
+    <div class="quick-add-bar">
+      <label for="quickPlace">Quick add:</label>
+      <select id="quickPlace"><option value="">Choose a place…</option></select>
+    </div>
+    <div id="quickActivities"></div>
+
     <div id="tripEmptyWrap" hidden>
       <div class="trip-empty-state">
         <span class="big-icon">🧳</span>
@@ -103,6 +111,7 @@
   <div><small>WhatsApp France</small><strong>+33 7 44 28 42 69</strong></div>
 </a>
 <div class="toast" id="toast"></div>
+<script src="places-data.js"></script>
 <script>
 (function () {
   "use strict";
@@ -215,6 +224,46 @@
         saveCart([]);
         showToast("Trip card cleared");
       }
+    });
+  }
+
+  // ---------- Quick add: any place & activity ----------
+  var quickSelect = document.getElementById("quickPlace");
+  var quickBox = document.getElementById("quickActivities");
+  if (quickSelect && window.CE_PLACES) {
+    Object.keys(window.CE_PLACES).forEach(function (pid) {
+      var opt = document.createElement("option");
+      opt.value = pid;
+      opt.textContent = window.CE_PLACES[pid].name + " — " + window.CE_PLACES[pid].tag;
+      quickSelect.appendChild(opt);
+    });
+    quickSelect.addEventListener("change", function () {
+      var pid = quickSelect.value;
+      quickBox.innerHTML = "";
+      if (!pid || !window.CE_PLACES[pid]) return;
+      var p = window.CE_PLACES[pid];
+      function addBtn(label, activityId, activityName, type, duration) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "quick-place-chip";
+        b.innerHTML = "<span><strong>" + activityName + "</strong><small>" + (type || p.tag) + " · " + (duration || "") + "</small></span><b>+ Add</b>";
+        b.addEventListener("click", function () {
+          var cart = getCart();
+          if (!cart.some(function (i) { return i.placeId === pid && i.activityId === activityId; })) {
+            cart.push({ placeId: pid, placeName: p.name, activityId: activityId,
+                        activityName: activityName, type: type || p.tag, duration: duration || "" });
+            saveCart(cart);
+            showToast("Added: " + activityName);
+          } else {
+            showToast("Already in your trip");
+          }
+        });
+        quickBox.appendChild(b);
+      }
+      addBtn("", pid, "Visit " + p.name, p.tag, p.duration);
+      (p.activities || []).forEach(function (a) {
+        addBtn("", a.id, a.name, a.type, a.duration);
+      });
     });
   }
 
