@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/sitemap.xml

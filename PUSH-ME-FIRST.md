@@ -29,12 +29,12 @@ Ce-Voyage-travel/
 ├── app.js                     # Homepage logic, interactive map, filters, search, animations
 ├── config.js                  # Central configuration (Phone numbers, WhatsApp, Email, Map coordinates)
 ├── content.js                 # Multilingual & marketing content
-├── places-data.js             # Data source for all 22 destinations (images, videos, tags, coordinates)
+├── places-data.js             # Data source for all 30 destinations (images, videos, tags, coordinates)
 ├── place-app.js               # Logic for individual destination pages + video player fallback + trip cart
 ├── place.css                  # Specific stylesheet for destination detail pages
 ├── experiences-app.js         # Logic for themed experience pages
 │
-├── places/                    # 22 Dedicated Destination Pages
+├── places/                    # 30 Dedicated Destination Pages
 │   ├── index.html             # All places catalog / directory
 │   ├── colombo.html, sigiriya.html, ella.html, galle.html, kandy.html, yala.html, ...
 │   └── anuradhapura.html, arugam-bay.html, dambulla.html, mirissa.html, trincomalee.html, ...
@@ -56,6 +56,10 @@ Ce-Voyage-travel/
 │   └── generate-pdfs.py       # Python ReportLab script to regenerate tour PDFs
 │
 ├── images/                    # Destination galleries, logos, background artwork & hero images
+├── robots.txt                 # Crawler rules for search engines (allows all + sitemap)
+├── sitemap.xml                # XML sitemap of all 53 pages
+├── 404.html                   # Custom branded not-found page
+├── favicon.ico, favicon-16x16.png, favicon-32x32.png, apple-touch-icon.png
 ├── DEPLOY.md                  # Detailed GitHub Pages deploy guide
 ├── GUIDE-SINHALA.md           # Step-by-step Sinhala customization tutorial
 ├── OPEN-ME-FIRST.txt          # Desktop offline user instructions
@@ -66,7 +70,7 @@ Ce-Voyage-travel/
 
 ## 🚀 Key Features Built-in
 
-1. **22 Dynamic Destination Pages**
+1. **30 Dynamic Destination Pages**
    - Rich descriptions, key highlights, best travel times, ideal duration, top activities.
    - Integrated HD video player ("Watch the film") with automatic fallback sources.
    - Interactive *"Add to My Trip"* action buttons.
