@@ -199,6 +199,7 @@ section#contact, .contact-section {
 </style>
 
 <link href="styles.css" rel="stylesheet"/>
+<link href="live.css" rel="stylesheet"/>
 
 <style id="critical-css">
 /* Critical fallback — works even if styles.css fails to load */
@@ -904,6 +905,7 @@ section#contact, .contact-section{
 <a data-i18n="navExperiences" href="#experiences">Experiences</a>
 <a data-i18n="navMap" href="#map">Map</a>
 <a data-i18n="navGuide" href="guide.html">Travel Guide</a>
+<a href="live.html">Live</a>
 <a href="tours.html">10-Day Tours</a>
 <a href="things-to-do.html">Things to Do</a>
 </nav>
@@ -935,6 +937,7 @@ section#contact, .contact-section{
 <a data-i18n="navExperiences" href="#experiences">Experiences</a>
 <a data-i18n="navMap" href="#map">Map</a>
 <a data-i18n="navGuide" href="guide.html">Travel Guide</a>
+<a href="live.html">Live · Stories</a>
 <a href="tours.html">10-Day Tours</a>
 <a href="things-to-do.html">Things to Do &amp; Events</a>
 <a href="vehicles.html">Vehicles</a>
@@ -993,6 +996,7 @@ section#contact, .contact-section{
     </p>
     <div class="v3-hero-actions reveal delay-3">
       <a class="v3-primary-button" href="#route"><span data-i18n="searchButton">Explore</span><b>↗</b></a>
+      <a class="live-hero-btn" href="live.html"><span class="pulse-dot"></span> Live now</a>
       <a class="v3-secondary-button" href="https://wa.me/33744284269" rel="noopener" target="_blank">WhatsApp France</a>
     </div>
     <div class="cinema-dots" id="cinemaDots" aria-label="Slideshow controls"></div>
@@ -1020,6 +1024,24 @@ section#contact, .contact-section{
     <a href="tel:+33744284269">+33 7 44 28 42 69</a>
     <a href="mailto:ceylonvoyage.sl@gmail.com">ceylonvoyage.sl@gmail.com</a>
   </div>
+</div>
+</section>
+<section class="home-social" aria-label="Social live">
+<div class="container">
+  <div class="stories-strip-head">
+    <p>Follow the journey</p>
+    <a href="live.html#social">Connect Instagram · Facebook · X · YouTube →</a>
+  </div>
+  <div class="social-bar" id="homeSocialBar"></div>
+</div>
+</section>
+<section class="stories-strip" id="liveStrip" aria-label="Live stories">
+<div class="container">
+  <div class="stories-strip-head">
+    <p>Live moments</p>
+    <a href="live.html">Open live panel →</a>
+  </div>
+  <div class="stories-row" id="homeStoriesRow"></div>
 </div>
 </section>
 <section aria-label="Ce Voyage promise" class="v3-brand-strip">
@@ -1528,5 +1550,6 @@ section#contact, .contact-section{
 <script src="config.js"></script>
 <script src="content.js"></script>
 <script src="app.js"></script>
+<script src="live.js"></script>
 </body>
 </html>
