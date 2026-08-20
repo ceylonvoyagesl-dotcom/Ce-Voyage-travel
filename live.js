@@ -39,6 +39,43 @@
   }
 
   /* ---------- Live post links (copy / share / open) ---------- */
+  /* Detect a social media post URL and build its embed */
+  function detectSocial(url) {
+    var u = String(url || "").trim();
+    if (!u) return null;
+    if (!/^https?:\/\//i.test(u)) u = "https://" + u.replace(/^\/+/, "");
+    var m;
+    m = u.match(/instagram\.com\/(p|reel|reels|tv)\/([A-Za-z0-9_-]+)/i);
+    if (m) {
+      var kind = m[1].toLowerCase() === "reels" ? "reel" : m[1].toLowerCase();
+      return { platform: "instagram", label: "Instagram", embed: "https://www.instagram.com/" + kind + "/" + m[2] + "/embed", post: "https://www.instagram.com/" + kind + "/" + m[2] + "/" };
+    }
+    m = u.match(/tiktok\.com\/[^?]*\/video\/(\d+)/i);
+    if (m) return { platform: "tiktok", label: "TikTok", embed: "https://www.tiktok.com/embed/v2/" + m[1], post: u.split("?")[0] };
+    m = u.match(/(?:youtu\.be\/|youtube\.com\/watch\?[^\s#]*v=|youtube\.com\/(?:shorts|embed)\/)([A-Za-z0-9_-]{6,})/i);
+    if (m) return { platform: "youtube", label: "YouTube", embed: "https://www.youtube.com/embed/" + m[1], post: u.split("?")[0] };
+    if (/(?:x\.com|twitter\.com)\/[^/]+\/status\/(\d+)/i.test(u)) {
+      return { platform: "x", label: "X / Twitter", embed: "https://platform.twitter.com/embed/Tweet.html?id=" + u.match(/status\/(\d+)/i)[1] + "&theme=light&dnt=true", post: u.split("?")[0] };
+    }
+    if (/facebook\.com|fb\.watch/i.test(u)) {
+      if (/\/videos?\//i.test(u)) {
+        return { platform: "facebook", label: "Facebook video", embed: "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(u) + "&show_text=true", post: u };
+      }
+      return { platform: "facebook", label: "Facebook post", embed: "https://www.facebook.com/plugins/post.php?href=" + encodeURIComponent(u) + "&show_text=true&width=500", post: u };
+    }
+    return null;
+  }
+
+  function socialEmbedHtml(p) {
+    if (!p || p.kind !== "social") return null;
+    var d = detectSocial(p.src || p.post || "");
+    if (!d) return null;
+    return {
+      d: d,
+      iframe: '<iframe class="embed ' + d.platform + '" src="' + d.embed + '" loading="lazy" scrolling="no" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture; clipboard-write"></iframe>'
+    };
+  }
+
   function postBaseUrl() {
     var page = location.pathname.split("/").pop() || "live.html";
     var here = location.href.split("#")[0];
@@ -54,6 +91,7 @@
     var slim = {
       id: p.id,
       kind: p.kind || "post",
+      platform: p.platform || "",
       title: p.title || p.name || "",
       body: p.body || p.caption || "",
       type: p.type || "image",
@@ -116,6 +154,18 @@
   function actionRow(p) {
     var wrap = document.createElement("div");
     wrap.className = "post-actions";
+    if (p.kind === "social") {
+      var d = detectSocial(p.src || p.post || "");
+      if (d) {
+        var orig = document.createElement("a");
+        orig.className = "mini-btn";
+        orig.href = d.post;
+        orig.target = "_blank";
+        orig.rel = "noopener";
+        orig.textContent = "↗ " + d.label;
+        wrap.appendChild(orig);
+      }
+    }
     var view = document.createElement("button");
     view.type = "button";
     view.className = "mini-btn view";
@@ -162,13 +212,16 @@
     v.className = "post-viewer";
     v.id = "postViewer";
     var media = "";
-    if (p.src && p.type === "video") media = '<video src="' + p.src + '" controls playsinline></video>';
+    var soc = socialEmbedHtml(p);
+    if (soc) {
+      media = soc.iframe;
+    } else if (p.src && p.type === "video") media = '<video src="' + p.src + '" controls playsinline></video>';
     else if (p.src) media = '<img alt="" src="' + p.src + '"/>';
     v.innerHTML =
       '<button class="close" type="button" aria-label="Close">×</button>' +
       '<div class="pv-card"><div class="pv-media">' + media + "</div>" +
       '<div class="pv-body">' +
-      '<div class="feed-meta">' + (p.kind === "blog" ? "Blog" : p.kind === "story" ? "Story" : "Live update") + " · " + new Date(p.time || Date.now()).toLocaleString() + "</div>" +
+      '<div class="feed-meta">' + (p.kind === "blog" ? "Blog" : p.kind === "story" ? "Story" : soc ? soc.d.label : "Live update") + " · " + new Date(p.time || Date.now()).toLocaleString() + "</div>" +
       "<h2>" + escapeHtml(p.title || p.name || "Update") + "</h2>" +
       "<p>" + escapeHtml(p.body || p.caption || "") + "</p>" +
       '<div class="pv-actions"></div>' +
@@ -232,6 +285,45 @@
     card.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
+  /* "+ Social post" — import a social media post link into the Live feed */
+  function bindSocialPost() {
+    var form = document.getElementById("socialPostComposer");
+    var open = document.getElementById("openSocialPost");
+    if (open && form) open.addEventListener("click", function () { form.classList.toggle("open"); });
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var urlEl = document.getElementById("spUrl");
+      var capEl = document.getElementById("spCaption");
+      var url = urlEl ? urlEl.value.trim() : "";
+      var cap = capEl ? capEl.value.trim() : "";
+      var d = detectSocial(url);
+      if (!d) {
+        toast("⚠️ Link එක හඳුනගන්න බෑ — Instagram / Facebook / YouTube / TikTok / X post link එකක් දාන්න");
+        return;
+      }
+      var data = load();
+      var item = {
+        id: "sp" + Date.now(),
+        kind: "social",
+        platform: d.platform,
+        title: cap || d.label + " post",
+        body: cap || "",
+        caption: cap,
+        type: "embed",
+        src: d.post,
+        time: Date.now()
+      };
+      data.posts.unshift(item);
+      save(data);
+      form.reset();
+      form.classList.remove("open");
+      renderLivePage();
+      showPublishDone(item);
+      toast("✅ " + d.label + " post එක feed එකට add වුණා");
+    });
+  }
+
   function renderStoriesHome() {
     var row = document.getElementById("homeStoriesRow");
     if (!row) return;
@@ -278,12 +370,18 @@
       var el = document.createElement("article");
       el.className = "feed-card";
       var media = "";
-      if (p.src) {
+      var soc = socialEmbedHtml(p);
+      if (soc) {
+        media = soc.iframe;
+      } else if (p.src) {
         media = p.type === "video"
           ? '<video src="' + p.src + '" controls playsinline></video>'
           : '<img alt="" src="' + p.src + '"/>';
       }
-      el.innerHTML = media + '<div class="feed-body"><div class="feed-meta">Live update · ' + new Date(p.time).toLocaleString() + "</div><h3>" + escapeHtml(p.title || "Update") + "</h3><p>" + escapeHtml(p.body || "") + "</p></div>";
+      var meta = soc
+        ? '<span class="pf ' + soc.d.platform + '">' + soc.d.label + "</span> · " + new Date(p.time).toLocaleString()
+        : "Live update · " + new Date(p.time).toLocaleString();
+      el.innerHTML = media + '<div class="feed-body"><div class="feed-meta">' + meta + "</div><h3>" + escapeHtml(p.title || "Update") + "</h3><p>" + escapeHtml(p.body || "") + "</p></div>";
       var pbody = el.querySelector(".feed-body");
       if (pbody) pbody.appendChild(actionRow(p));
       feed.appendChild(el);
@@ -412,12 +510,17 @@
     bindSocial();
     renderHomeSocial();
     handlePostLink();
+    bindSocialPost();
     var openBtn = document.getElementById("openComposer");
     var form = document.getElementById("liveComposer");
     if (openBtn && form) {
       openBtn.addEventListener("click", function () { form.classList.toggle("open"); });
     }
     if (location.hash === "#upload" && form) form.classList.add("open");
+    if (location.hash === "#socialpost") {
+      var spf = document.getElementById("socialPostComposer");
+      if (spf) spf.classList.add("open");
+    }
     if (location.hash === "#social") {
       var sf = document.getElementById("socialComposer");
       if (sf) sf.classList.add("open");
@@ -483,7 +586,7 @@
     if (!wall) return;
     var igLines = (s.igPosts || "").split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean);
     var igHtml = igLines.length
-      ? '<div class="ig-grid">' + igLines.slice(0, 4).map(function (u) {
+      ? '<div class="ig-grid">' + igLines.slice(0, 6).map(function (u) {
           var src = igEmbedSrc(u);
           return src ? '<iframe src="' + src + '" loading="lazy" allowtransparency="true"></iframe>' : "";
         }).join("") + "</div>"

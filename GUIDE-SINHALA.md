@@ -331,3 +331,12 @@ Live page එකේ (`live.html`) post එකක් publish කරාම **ඒ p
 **Tip:** හැමෝටම පේන post එකක් ඕන නම් — photo එක internet URL එකකින් (unsplash/pexels) දාන්න, phone upload එකෙන් නෙමෙයි.
 
 **සටහන:** Posts ඔයාගේ browser එකේ save වෙනවා (localStorage). ඒ නිසා phone එකේ දාපු post එකක් අනිත් browser එකක පේන්නේ නෑ — ඒත් link එකේ data encode වෙලා තියෙන නිසා බොහෝ posts හැම තැනම වැඩ කරනවා.
+
+### 📱 Social media post එකක් website feed එකට එන්න (Import)
+1. Instagram / Facebook / YouTube / TikTok / X එකේ ඔයාගේ post එකේ **link එක copy** කරන්න
+2. `live.html` → **+ Social post** → link එක paste කරලා caption එකක් දාන්න (optional) → **Add to feed**
+3. ඒ post එක **Live feed එකට කෙලින්ම එනවා** — original post එකම embed වෙලා (play කරන්නත් පුළුවන්)
+4. Platform badge එකකුත් එනවා (Instagram / Facebook / YouTube / TikTok / X) + "↗ Instagram" වගේ button එකකින් original post එකට යන්න පුළුවන්
+5. ඒ card එකටත් **🔗 Copy link** එකෙන් website link එක copy කරන්න පුළුවන්
+
+**සටහන:** මේක fully automatic නෙමෙයි (API keys + server එකක් ඕන නිසයි) — ඒත් seconds දෙකයි වැඩේ: social එකේ post කරලා link එක paste කරන එක විතරයි. Connect social එකේ page timelines (Facebook page / X / YouTube channel) automatic update වෙනවා.
