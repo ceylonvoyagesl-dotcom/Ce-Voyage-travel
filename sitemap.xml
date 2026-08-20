@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/accommodation.html</loc>
+    <lastmod>2026-08-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/central-province.html</loc>
     <lastmod>2026-08-20</lastmod>
     <priority>0.8</priority>
@@ -239,6 +244,11 @@
     <loc>https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/team.html</loc>
     <lastmod>2026-08-20</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/things-to-do.html</loc>
+    <lastmod>2026-08-20</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/tours.html</loc>

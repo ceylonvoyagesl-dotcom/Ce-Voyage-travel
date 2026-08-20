@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0a3d33"/>
+<meta name="description" content="Ce Voyage's hand-picked places to stay in Sri Lanka — luxury hotels, private villas, social hostels and warm family homestays, each with details, prices and a direct Google Maps link."/>
+<title>Recommended Stays — Hotels, Villas, Hostels & Homestays | Ce Voyage</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<link href="place.css" rel="stylesheet"/>
+<link href="accommodation.css" rel="stylesheet"/>
+<!-- SEO: Open Graph, Twitter Cards, canonical & favicons -->
+<meta property="og:site_name" content="Ce Voyage"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Recommended Stays — Hotels, Villas, Hostels & Homestays | Ce Voyage"/>
+<meta property="og:description" content="Ce Voyage's hand-picked places to stay in Sri Lanka — hotels, villas, hostels & homestays with details, prices and direct Google Maps links."/>
+<meta property="og:url" content="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/accommodation.html"/>
+<meta property="og:image" content="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/images/stays/hero.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Recommended Stays — Hotels, Villas, Hostels & Homestays | Ce Voyage"/>
+<meta name="twitter:description" content="Hand-picked places to stay in Sri Lanka — hotels, villas, hostels & homestays with details, prices and direct Google Maps links."/>
+<meta name="twitter:image" content="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/images/stays/hero.jpg"/>
+<link rel="canonical" href="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/accommodation.html"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+<link rel="icon" href="favicon.ico" sizes="any"/>
+</head>
+<body class="place-page">
+<header class="site-header v3-header place-header" id="siteHeader">
+  <div class="container nav-wrap v3-nav-wrap">
+    <a class="brand logo-brand v3-logo-brand" href="index.html" aria-label="Ce Voyage home">
+      <img class="logo-image" src="ce-voyage-logo.webp" alt="Ce Voyage"/>
+    </a>
+    <nav class="desktop-nav v3-desktop-nav" aria-label="Main">
+      <a href="index.html#discover">Discover</a>
+      <a href="places/index.html">Places</a>
+      <a href="experiences/index.html">Experiences</a>
+      <a href="guide.html">Travel Guide</a>
+      <a href="tours.html">10-Day Tours</a>
+      <a href="vehicles.html">Vehicles</a>
+      <a href="accommodation.html" aria-current="page">Stays</a>
+      <a href="team.html">Team</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-trip-link" href="trip.html">My Trip <span class="trip-badge" data-trip-badge hidden>0</span></a>
+      <a class="v3-header-cta" href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<section class="place-hero">
+  <div class="place-hero-bg" style="background-image:url('images/stays/hero.jpg')"></div>
+  <div class="container">
+    <div class="place-breadcrumb">
+      <a href="index.html">Home</a>
+      <span>·</span>
+      <a href="trip.html">My Trip</a>
+      <span>·</span>
+      <span>Recommended Stays</span>
+    </div>
+    <span class="place-tag">Hand-picked by Ce Voyage</span>
+    <h1>Where to Stay in Sri Lanka</h1>
+    <p class="tagline">Hotels, villas, hostels and homestays we personally recommend — checked prices, honest notes, and a Google Maps link for every single one.</p>
+    <div class="place-hero-actions">
+      <a class="btn-gold" href="#stayGrid">Browse all stays</a>
+      <a class="btn-ghost" style="border-color:rgba(255,255,255,.6);color:#fff" href="https://wa.me/33744284269?text=Hi%20Ce%20Voyage!%20Can%20you%20recommend%20a%20place%20to%20stay%20for%20my%20trip%3F" rel="noopener" target="_blank">Ask us on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<main class="container" style="padding-bottom:70px">
+
+  <!-- Category intro cards -->
+  <div class="stay-filters" id="stayFilters" style="margin-top:44px"></div>
+  <p class="stay-cat-intro" id="stayCatIntro"></p>
+
+  <!-- Stays grid -->
+  <div class="stay-grid" id="stayGrid"></div>
+
+  <!-- CTA -->
+  <div class="stay-cta-banner">
+    <h2>Not sure which one fits your trip?</h2>
+    <p>Send us your dates and budget on WhatsApp — we will suggest the right stay for every night of your route, free of charge.</p>
+    <a class="btn-gold" href="https://wa.me/33744284269?text=Hi%20Ce%20Voyage!%20I%27d%20like%20a%20stay%20recommendation%20for%20my%20Sri%20Lanka%20trip." rel="noopener" target="_blank">Get a personal recommendation</a>
+  </div>
+</main>
+
+<!-- Details modal -->
+<div class="stay-modal-backdrop" id="stayModalBackdrop">
+  <div class="stay-modal" role="dialog" aria-modal="true" aria-labelledby="stayModalTitle">
+    <button class="stay-modal-close" type="button" id="stayModalClose" aria-label="Close details">✕</button>
+    <div class="stay-modal-media"><img id="stayModalImg" alt=""/></div>
+    <div class="stay-modal-body">
+      <h3 id="stayModalTitle"></h3>
+      <div class="stay-modal-meta" id="stayModalMeta"></div>
+      <div class="stay-modal-section"><p id="stayModalDesc"></p></div>
+      <div class="stay-modal-section"><h4>Why we love it</h4><ul id="stayModalHighlights"></ul></div>
+      <div class="stay-modal-section"><h4>Facilities</h4><div class="stay-facility-chips" id="stayModalFacilities"></div></div>
+      <div class="stay-modal-section"><h4>Good to know</h4><div class="stay-tips" id="stayModalTips"></div></div>
+      <div class="stay-modal-section"><h4>Best for</h4><p id="stayModalBestFor"></p></div>
+      <div class="stay-modal-actions">
+        <a class="stay-btn-map" id="stayModalMap" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+          Open in Google Maps
+        </a>
+        <button class="btn-gold" type="button" id="stayModalAdd">＋ Add to my trip</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container footer-bottom" style="border:none;padding:24px 0 40px;opacity:.7">
+    <span>© 2026 Ce Voyage Sri Lanka</span>
+    <a href="index.html">Back to home</a>
+  </div>
+</footer>
+<a class="floating-whatsapp" href="https://wa.me/33744284269" rel="noopener" target="_blank">
+  <span>WA</span>
+  <div><small>WhatsApp France</small><strong>+33 7 44 28 42 69</strong></div>
+</a>
+<div class="toast" id="toast"></div>
+
+<script src="accommodation-data.js"></script>
+<script>
+(function () {
+  "use strict";
+  var CART_KEY = "cevoyage-trip";
+  var STAYS = window.CE_STAYS || [];
+  var CATS = window.CE_STAY_CATS || [];
+
+  /* ---------- cart helpers (same shape as trip planner) ---------- */
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+    catch (e) { return []; }
+  }
+  function saveCart(items) {
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
+    updateBadges();
+  }
+  function updateBadges() {
+    var n = getCart().length;
+    document.querySelectorAll("[data-trip-badge]").forEach(function (b) {
+      b.textContent = n;
+      b.hidden = !n;
+    });
+  }
+  function showToast(text) {
+    var toast = document.getElementById("toast");
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add("show");
+    setTimeout(function () { toast.classList.remove("show"); }, 2800);
+  }
+  function catLabel(id) {
+    var c = CATS.find(function (x) { return x.id === id; });
+    return c ? c.label : id;
+  }
+  function addStayToTrip(s) {
+    var cart = getCart();
+    if (cart.some(function (i) { return i.placeId === "stay-" + s.id; })) {
+      showToast("Already in your trip");
+      return;
+    }
+    cart.push({
+      placeId: "stay-" + s.id,
+      placeName: "🏨 Recommended stays",
+      activityId: s.id,
+      activityName: s.name + " — " + s.town,
+      type: "Stay · " + catLabel(s.cat),
+      duration: s.price
+    });
+    saveCart(cart);
+    showToast("Added to your trip: " + s.name);
+  }
+
+  /* ---------- image fallback: never show a broken image ---------- */
+  var FALLBACK_IMG = "images/stays/hero.jpg";
+  function safeImg(imgEl, src, alt) {
+    imgEl.alt = alt || "";
+    imgEl.loading = "lazy";
+    imgEl.onerror = function () {
+      imgEl.onerror = null;
+      if (!imgEl.src.endsWith(FALLBACK_IMG)) imgEl.src = FALLBACK_IMG;
+    };
+    imgEl.src = src;
+  }
+
+  /* ---------- filters ---------- */
+  var activeCat = "all";
+  var alias = { hotels: "hotel", villas: "villa", hostels: "hostel", homestays: "homestay" };
+
+  function renderFilters() {
+    var box = document.getElementById("stayFilters");
+    box.innerHTML = "";
+    var cats = [{ id: "all", label: "All stays", icon: "✨" }].concat(CATS);
+    cats.forEach(function (c) {
+      var n = c.id === "all" ? STAYS.length : STAYS.filter(function (s) { return s.cat === c.id; }).length;
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "stay-filter" + (activeCat === c.id ? " active" : "");
+      b.innerHTML = c.icon + " " + c.label + ' <span class="count">' + n + "</span>";
+      b.addEventListener("click", function () { setCat(c.id, true); });
+      box.appendChild(b);
+    });
+    var intro = document.getElementById("stayCatIntro");
+    var cur = CATS.find(function (c) { return c.id === activeCat; });
+    intro.textContent = cur ? cur.blurb : "Every stay below is one we would happily book for our own family — pick a category or scroll them all.";
+  }
+
+  function setCat(id, scroll) {
+    activeCat = id;
+    if (history.replaceState) {
+      var plural = { hotel: "hotels", villa: "villas", hostel: "hostels", homestay: "homestays" };
+      history.replaceState(null, "", id === "all" ? "accommodation.html" : "#" + (plural[id] || id));
+    }
+    renderFilters();
+    renderGrid();
+    if (scroll) {
+      document.getElementById("stayGrid").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  /* ---------- grid ---------- */
+  var mapIcon = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
+
+  function renderGrid() {
+    var grid = document.getElementById("stayGrid");
+    grid.innerHTML = "";
+    STAYS.filter(function (s) { return activeCat === "all" || s.cat === activeCat; })
+      .forEach(function (s) {
+        var card = document.createElement("article");
+        card.className = "stay-card";
+        card.id = "stay-" + s.id;
+
+        var media = document.createElement("div");
+        media.className = "stay-card-media";
+        var img = document.createElement("img");
+        safeImg(img, s.img, s.name + " — " + s.town);
+        media.appendChild(img);
+        var badge = document.createElement("span");
+        badge.className = "stay-cat-badge";
+        badge.textContent = catLabel(s.cat);
+        media.appendChild(badge);
+        var price = document.createElement("span");
+        price.className = "stay-price";
+        price.textContent = s.price;
+        media.appendChild(price);
+
+        var body = document.createElement("div");
+        body.className = "stay-card-body";
+
+        var top = document.createElement("div");
+        top.className = "stay-card-top";
+        var h3 = document.createElement("h3");
+        h3.textContent = s.name;
+        var rating = document.createElement("span");
+        rating.className = "stay-rating";
+        rating.innerHTML = "<b>★</b> " + s.rating.toFixed(1);
+        top.appendChild(h3);
+        top.appendChild(rating);
+
+        var loc = document.createElement("p");
+        loc.className = "stay-loc";
+        loc.textContent = "📍 " + s.town + " · " + s.region;
+
+        var desc = document.createElement("p");
+        desc.className = "stay-desc";
+        desc.textContent = s.tagline;
+
+        var mini = document.createElement("div");
+        mini.className = "stay-mini-highlights";
+        s.highlights.slice(0, 3).forEach(function (h) {
+          var chip = document.createElement("span");
+          chip.textContent = h;
+          mini.appendChild(chip);
+        });
+
+        var actions = document.createElement("div");
+        actions.className = "stay-card-actions";
+
+        var det = document.createElement("button");
+        det.type = "button";
+        det.className = "btn-ghost";
+        det.textContent = "More details";
+        det.addEventListener("click", function () { openModal(s); });
+
+        var map = document.createElement("a");
+        map.className = "stay-btn-map";
+        map.href = s.maps;
+        map.target = "_blank";
+        map.rel = "noopener";
+        map.innerHTML = mapIcon + " Google Maps";
+
+        var add = document.createElement("button");
+        add.type = "button";
+        add.className = "btn-gold";
+        add.textContent = "＋ Add to trip";
+        add.addEventListener("click", function () { addStayToTrip(s); });
+
+        actions.appendChild(det);
+        actions.appendChild(map);
+        actions.appendChild(add);
+
+        body.appendChild(top);
+        body.appendChild(loc);
+        body.appendChild(desc);
+        body.appendChild(mini);
+        body.appendChild(actions);
+
+        card.appendChild(media);
+        card.appendChild(body);
+        grid.appendChild(card);
+      });
+  }
+
+  /* ---------- details modal ---------- */
+  var backdrop = document.getElementById("stayModalBackdrop");
+  var currentStay = null;
+
+  function openModal(s) {
+    currentStay = s;
+    safeImg(document.getElementById("stayModalImg"), s.img, s.name);
+    document.getElementById("stayModalTitle").textContent = s.name;
+    document.getElementById("stayModalMeta").innerHTML =
+      "<span>📍 <b>" + s.town + "</b>, " + s.region + "</span>" +
+      "<span>★ <b>" + s.rating.toFixed(1) + "</b> / 5</span>" +
+      "<span><b>" + s.price + "</b></span>";
+    document.getElementById("stayModalDesc").textContent = s.desc;
+
+    var hl = document.getElementById("stayModalHighlights");
+    hl.innerHTML = "";
+    s.highlights.forEach(function (h) {
+      var li = document.createElement("li");
+      li.textContent = h;
+      hl.appendChild(li);
+    });
+
+    var fac = document.getElementById("stayModalFacilities");
+    fac.innerHTML = "";
+    (s.facilities || []).forEach(function (f) {
+      var chip = document.createElement("span");
+      chip.textContent = f;
+      fac.appendChild(chip);
+    });
+
+    var tips = document.getElementById("stayModalTips");
+    tips.innerHTML = "";
+    (s.goodToKnow || []).forEach(function (t) {
+      var p = document.createElement("p");
+      p.textContent = "💡 " + t;
+      tips.appendChild(p);
+    });
+
+    document.getElementById("stayModalBestFor").textContent = s.bestFor;
+    document.getElementById("stayModalMap").href = s.maps;
+
+    backdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    backdrop.classList.remove("open");
+    document.body.style.overflow = "";
+    currentStay = null;
+  }
+
+  document.getElementById("stayModalClose").addEventListener("click", closeModal);
+  backdrop.addEventListener("click", function (e) { if (e.target === backdrop) closeModal(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeModal(); });
+  document.getElementById("stayModalAdd").addEventListener("click", function () {
+    if (currentStay) addStayToTrip(currentStay);
+  });
+
+  /* ---------- header scroll effect ---------- */
+  var header = document.getElementById("siteHeader");
+  if (header) {
+    window.addEventListener("scroll", function () {
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    }, { passive: true });
+  }
+
+  /* ---------- init (deep-link: #hotels #villas #hostels #homestays) ---------- */
+  var h = (location.hash || "").replace("#", "").toLowerCase();
+  if (alias[h]) activeCat = alias[h];
+  else if (CATS.some(function (c) { return c.id === h; })) activeCat = h;
+  renderFilters();
+  renderGrid();
+  updateBadges();
+})();
+</script>
+</body>
+</html>
