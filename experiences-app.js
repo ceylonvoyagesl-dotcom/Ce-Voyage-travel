@@ -1,6 +1,18 @@
-/* Ce Voyage — Experience pages: linked places + trip badge */
+/* Ce Voyage — Experience & province pages: linked places + trip badge */
 (function () {
   "use strict";
+
+  // Derive the site root from this script's own URL so links work from any
+  // page depth and on any host path (e.g. /Ce-Voyage-travel/ on GitHub Pages).
+  function siteRoot() {
+    try {
+      var cs = document.currentScript;
+      if (cs && cs.src) {
+        return cs.src.substring(0, cs.src.lastIndexOf("/") + 1);
+      }
+    } catch (e) { /* ignore */ }
+    return "./";
+  }
 
   function renderPlaces() {
     var wrap = document.getElementById("linkedPlaces");
@@ -14,7 +26,7 @@
       if (!p) return;
       var a = document.createElement("a");
       a.className = "exp-card";
-      a.href = "../places/" + id + ".html";
+      a.href = siteRoot() + "places/" + id + ".html";
       a.innerHTML = '<img alt=""/><div class="body"><span></span><h3></h3><p></p></div>';
       a.querySelector("img").src = p.hero;
       a.querySelector("img").alt = p.name;
