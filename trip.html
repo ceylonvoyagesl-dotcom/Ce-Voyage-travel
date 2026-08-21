@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#0a3d33"/>
-<meta name="description" content="Ce Voyage — your trip card: review the places and activities you saved, then send your plan on WhatsApp."/>
+<meta name="description" content="Ce Voyage — your trip card: review the places and activities you saved, then submit your custom trip plan to our experts."/>
 <title>My Trip | Ce Voyage Sri Lanka</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Ce Voyage"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="My Trip | Ce Voyage Sri Lanka"/>
-<meta property="og:description" content="Ce Voyage — your trip card: review the places and activities you saved, then send your plan on WhatsApp."/>
+<meta property="og:description" content="Ce Voyage — your trip card: review the places and activities you saved, then submit your custom trip plan to our experts."/>
 <meta property="og:url" content="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/trip.html"/>
 <meta property="og:image" content="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/images/bg-colombo.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="My Trip | Ce Voyage Sri Lanka"/>
-<meta name="twitter:description" content="Ce Voyage — your trip card: review the places and activities you saved, then send your plan on WhatsApp."/>
+<meta name="twitter:description" content="Ce Voyage — your trip card: review the places and activities you saved, then submit your custom trip plan to our experts."/>
 <meta name="twitter:image" content="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/images/bg-colombo.jpg"/>
 <link rel="canonical" href="https://ceylonvoyagesl-dotcom.github.io/Ce-Voyage-travel/trip.html"/>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
@@ -63,9 +63,9 @@
     </div>
     <span class="place-tag">Your planner</span>
     <h1>My Trip Card</h1>
-    <p class="tagline">Everything you saved from the place pages — review it, trim it, and send it to us to shape the journey.</p>
+    <p class="tagline">Everything you saved from the place pages — review it, customize it, and submit it directly to our experts.</p>
     <div class="place-hero-actions">
-      <button class="btn-gold" type="button" id="waTripBtn">Send trip on WhatsApp</button>
+      <a class="btn-gold" href="#tripRequestSection" id="heroRequestBtn">Request custom itinerary</a>
       <a class="btn-ghost" href="places/index.html">Add more places</a>
     </div>
   </div>
@@ -94,11 +94,50 @@
     <div id="tripListWrap" hidden>
       <h2 class="place-section-title">Your saved items <span id="tripCount" style="font-size:14px;font-weight:700;color:#14765d"></span></h2>
       <div class="trip-planner-actions no-print">
-        <button class="btn-gold" type="button" id="waTripBtn2">Send trip on WhatsApp</button>
+        <a class="btn-gold" href="#tripRequestSection">Request itinerary ↓</a>
         <button class="btn-ghost" type="button" id="clearTripBtn">Clear all</button>
       </div>
       <div id="tripList"></div>
-      <p class="place-summary" style="margin-top:18px">Tip: send us this list on WhatsApp and we will turn it into a day-by-day route with hotels, transport and a price — free of charge.</p>
+      <p class="place-summary" style="margin-top:18px">Tip: submit your saved items below and our local travel experts will craft a complete day-by-day route with hotels, transport and a price — free of charge.</p>
+
+      <!-- TRIP REQUEST FORM -->
+      <section id="tripRequestSection" class="guide-section-block" style="margin-top:32px">
+        <h2 class="place-section-title">Request your custom itinerary</h2>
+        <p class="place-summary">Enter your details below to submit your trip plan directly to our travel team. We will turn your saved items into a tailored itinerary with transport, hotels and pricing.</p>
+        <div class="contact-card" style="max-width:720px;padding:28px 24px">
+          <form id="tripRequestForm">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" class="form-2col">
+              <label style="display:block;font-size:13px;font-weight:700;color:#0a3d33">Your name *
+                <input required id="tripName" name="name" type="text" placeholder="e.g. Marie Dupont" style="width:100%;margin-top:6px;padding:12px 14px;border:1px solid rgba(10,61,51,.18);border-radius:12px;font:inherit"/>
+              </label>
+              <label style="display:block;font-size:13px;font-weight:700;color:#0a3d33">Email or Phone / WhatsApp *
+                <input required id="tripContact" name="contact" type="text" placeholder="e.g. marie@example.com or +33..." style="width:100%;margin-top:6px;padding:12px 14px;border:1px solid rgba(10,61,51,.18);border-radius:12px;font:inherit"/>
+              </label>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px" class="form-2col">
+              <label style="display:block;font-size:13px;font-weight:700;color:#0a3d33">Estimated travel dates
+                <input id="tripDates" name="travelDate" type="text" placeholder="e.g. October 2026 / 12 days" style="width:100%;margin-top:6px;padding:12px 14px;border:1px solid rgba(10,61,51,.18);border-radius:12px;font:inherit"/>
+              </label>
+              <label style="display:block;font-size:13px;font-weight:700;color:#0a3d33">Number of travellers
+                <select id="tripTravellers" name="travellers" style="width:100%;margin-top:6px;padding:12px 14px;border:1px solid rgba(10,61,51,.18);border-radius:12px;font:inherit;background:#fff">
+                  <option>1 traveller</option>
+                  <option selected>2 travellers</option>
+                  <option>3 travellers</option>
+                  <option>4 travellers</option>
+                  <option>5+ travellers</option>
+                </select>
+              </label>
+            </div>
+            <label style="display:block;font-size:13px;font-weight:700;color:#0a3d33;margin-top:14px">Message / Special requests
+              <textarea id="tripMessage" name="message" rows="3" placeholder="Tell us about your travel style, preferred pace, accommodation preferences or any special requirements..." style="width:100%;margin-top:6px;padding:12px 14px;border:1px solid rgba(10,61,51,.18);border-radius:12px;font:inherit;resize:vertical"></textarea>
+            </label>
+            <div class="place-hero-actions" style="margin-top:18px;align-items:center">
+              <button class="btn-gold" type="submit" id="submitTripBtn">Submit Trip Request</button>
+              <p aria-live="polite" id="tripStatus" style="margin:0;font-size:14px;font-weight:600;min-height:20px"></p>
+            </div>
+          </form>
+        </div>
+      </section>
     </div>
 
     <div class="stays-strip">
@@ -120,7 +159,7 @@
       <h2>How it works</h2>
       <p>1. Add places &amp; activities from the place pages.</p>
       <p>2. Review everything here on your trip card.</p>
-      <p>3. Send the plan on WhatsApp — we reply with a complete itinerary.</p>
+      <p>3. Submit the plan — we reply with a complete itinerary.</p>
       <a class="btn-gold" href="places/index.html" style="justify-content:center;width:100%">Browse places</a>
     </div>
     <h2 class="place-section-title" style="font-size:20px">Quick links</h2>
@@ -232,37 +271,6 @@
     });
   }
 
-  function sendWhatsApp() {
-    var cart = getCart();
-    var lines = ["🌍 *Ce Voyage — Trip request*", ""];
-    if (!cart.length) {
-      lines.push("I'm interested in planning a trip to Sri Lanka.");
-    } else {
-      lines.push("My trip plan:");
-      cart.forEach(function (i, idx) {
-        lines.push((idx + 1) + ". " + i.activityName + " (" + i.placeName + ")");
-      });
-    }
-    lines.push("", "Please help me plan this journey.");
-
-    if (window.CeVoyageBackend) {
-      window.CeVoyageBackend.saveInquiry({
-        inquiry_type: "trip_plan",
-        message: "Please help me plan this journey.",
-        trip_items: cart
-      }).catch(function (error) {
-        console.error("Trip plan could not be stored:", error);
-      });
-    }
-
-    var url = "https://wa.me/33744284269?text=" + encodeURIComponent(lines.join("\n"));
-    window.open(url, "_blank", "noopener");
-  }
-
-  var wa1 = document.getElementById("waTripBtn");
-  var wa2 = document.getElementById("waTripBtn2");
-  if (wa1) wa1.addEventListener("click", sendWhatsApp);
-  if (wa2) wa2.addEventListener("click", sendWhatsApp);
   var clearBtn = document.getElementById("clearTripBtn");
   if (clearBtn) {
     clearBtn.addEventListener("click", function () {
@@ -270,6 +278,85 @@
         saveCart([]);
         showToast("Trip card cleared");
       }
+    });
+  }
+
+  // Trip Request Form -> Direct Supabase Submit
+  var tripForm = document.getElementById("tripRequestForm");
+  if (tripForm) {
+    tripForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var nameInput = document.getElementById("tripName");
+      var contactInput = document.getElementById("tripContact");
+      var datesInput = document.getElementById("tripDates");
+      var paxSelect = document.getElementById("tripTravellers");
+      var messageInput = document.getElementById("tripMessage");
+      var statusEl = document.getElementById("tripStatus");
+      var submitBtn = document.getElementById("submitTripBtn");
+
+      var name = nameInput ? nameInput.value.trim() : "";
+      var contact = contactInput ? contactInput.value.trim() : "";
+      var dates = datesInput ? datesInput.value.trim() : "";
+      var pax = paxSelect ? paxSelect.value : "";
+      var message = messageInput ? messageInput.value.trim() : "";
+
+      if (!name || !contact) {
+        if (statusEl) {
+          statusEl.textContent = "Please fill in your name and contact details.";
+          statusEl.style.color = "#c0392b";
+        }
+        return;
+      }
+
+      if (!window.CeVoyageBackend || !window.CeVoyageBackend.configured) {
+        if (statusEl) {
+          statusEl.textContent = "Form submission is temporarily unavailable. Please try again later.";
+          statusEl.style.color = "#c0392b";
+        }
+        return;
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (statusEl) {
+        statusEl.textContent = "Submitting trip request...";
+        statusEl.style.color = "#0a3d33";
+      }
+
+      var isEmail = contact.indexOf("@") !== -1;
+      var cart = getCart();
+
+      var record = {
+        inquiry_type: "trip_plan",
+        full_name: name,
+        contact: contact,
+        email: isEmail ? contact : "",
+        phone: !isEmail ? contact : "",
+        travel_date: dates,
+        travellers: pax,
+        message: message,
+        trip_items: cart
+      };
+
+      window.CeVoyageBackend.saveInquiry(record)
+        .then(function () {
+          if (statusEl) {
+            statusEl.textContent = "Thank you! Your trip plan has been submitted. Our team will contact you shortly.";
+            statusEl.style.color = "#14765d";
+          }
+          showToast("Trip plan submitted successfully!");
+          tripForm.reset();
+        })
+        .catch(function (err) {
+          console.error("Trip submission failed:", err);
+          if (statusEl) {
+            statusEl.textContent = "We couldn't submit your request right now. Please try again.";
+            statusEl.style.color = "#c0392b";
+          }
+          showToast("Could not submit request. Please try again.");
+        })
+        .finally(function () {
+          if (submitBtn) submitBtn.disabled = false;
+        });
     });
   }
 

@@ -1,13 +1,13 @@
 # Supabase setup — Ce Voyage
 
-The website is ready to store these customer actions:
+The website stores customer submissions directly in Supabase:
 
-- Homepage travel requests → `inquiries`
-- 10-day tour requests → `inquiries`
-- My Trip WhatsApp requests → `inquiries`
+- Homepage travel requests → `inquiries` (inquiry_type: `travel_request`)
+- 10-day tour requests → `inquiries` (inquiry_type: `tour_request`)
+- My Trip requests → `inquiries` (inquiry_type: `trip_plan`)
 - Newsletter sign-ups → `newsletter_subscribers`
 
-WhatsApp still opens as before. Database storage is an additional step, so a temporary database failure does not lose the customer's WhatsApp flow.
+Submissions are sent directly to the Supabase REST API via `apikey` header and display instant on-page confirmation messages without redirecting to WhatsApp.
 
 ## 1. Create the tables and security rules
 
@@ -15,32 +15,28 @@ WhatsApp still opens as before. Database storage is an additional step, so a tem
 2. Go to **SQL Editor** → **New query**.
 3. Copy all of [`supabase/schema.sql`](supabase/schema.sql) and run it once.
 
-The included Row Level Security rules let public visitors insert a request, but do **not** let them read, edit, or delete customer data.
+The included Row Level Security rules let public visitors insert submissions securely, but do **not** allow anonymous reading, updating, or deleting of customer data.
 
-## 2. Add public browser credentials
+## 2. Public browser credentials
 
-Open `config.js` and replace:
+In `config.js`:
 
 ```js
 supabase: {
-  url: "YOUR_SUPABASE_PROJECT_URL",
-  anonKey: "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY"
+  url: "https://xlejfklsatjqhsbwmalf.supabase.co",
+  anonKey: "sb_publishable_..."
 }
 ```
 
-Find both values under **Supabase Dashboard → Project Settings → API**.
-
-Use only the public **anon** or **publishable** key. Never add a `service_role`, secret key, database password, or JWT signing secret to this repository.
+Use only the public **anon** or **publishable** key. The client automatically sends publishable keys via the `apikey` header (without `Authorization: Bearer`). Never place a `service_role` or secret key in browser code.
 
 ## 3. Test
 
-After deployment, submit one of each form and check:
+After deployment, submit test entries on each form and verify:
 
 - **Table Editor → inquiries**
 - **Table Editor → newsletter_subscribers**
-- Browser Developer Tools → Console/Network for an error from `/rest/v1/...`
-
-The homepage newsletter intentionally shows “temporarily unavailable” until valid credentials are configured. Other enquiry buttons preserve the current WhatsApp behaviour even when Supabase is not yet configured.
+- Inspect network requests to ensure `201 Created` responses from `/rest/v1/...`
 
 ## Future admin and mobile apps
 

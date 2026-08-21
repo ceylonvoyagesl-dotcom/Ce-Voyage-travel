@@ -13,9 +13,25 @@
     return {
       page_url: window.location.href,
       page_path: window.location.pathname,
-      language: document.documentElement.lang || navigator.language || "en",
+      language: (document.documentElement && document.documentElement.lang) || navigator.language || "en",
       user_agent: navigator.userAgent
     };
+  }
+
+  function getHeaders() {
+    var headers = {
+      apikey: key,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal"
+    };
+
+    // When key is a publishable key (sb_publishable_*), do NOT send Authorization: Bearer token.
+    // Only send Authorization header if key is a legacy 3-part JWT anon key.
+    if (key && !key.startsWith("sb_publishable_") && key.indexOf(".") !== -1 && key.split(".").length === 3) {
+      headers.Authorization = "Bearer " + key;
+    }
+
+    return headers;
   }
 
   function insert(table, record) {
@@ -27,12 +43,7 @@
     return fetch(url + "/rest/v1/" + table, {
       method: "POST",
       keepalive: true,
-      headers: {
-        apikey: key,
-        Authorization: "Bearer " + key,
-        "Content-Type": "application/json",
-        Prefer: "return=minimal"
-      },
+      headers: getHeaders(),
       body: JSON.stringify(record)
     }).then(function (response) {
       if (!response.ok) {
@@ -64,6 +75,9 @@
   window.CeVoyageBackend = {
     configured: configured,
     saveInquiry: saveInquiry,
-    subscribe: subscribe
+    subscribe: subscribe,
+    insert: insert,
+    getHeaders: getHeaders
   };
 })();
+

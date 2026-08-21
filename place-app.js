@@ -255,24 +255,7 @@
     var waTrip = document.getElementById("waTripBtn");
     if (waTrip) {
       waTrip.addEventListener("click", function () {
-        var cart = getCart();
-        var lines = ["🌍 *Ce Voyage — Trip request*", ""];
-        if (!cart.length) {
-          lines.push("Interested in: " + place.name);
-        } else {
-          lines.push("My trip plan:");
-          cart.forEach(function (i, idx) {
-            lines.push(idx + 1 + ". " + i.activityName + " (" + i.placeName + ")");
-          });
-        }
-        lines.push("", "Please help me plan this journey.");
-        var phone = (window.CE_VOYAGE && window.CE_VOYAGE.whatsappFrance) || "33744284269";
-        var url =
-          "https://wa.me/" +
-          String(phone).replace(/\D/g, "") +
-          "?text=" +
-          encodeURIComponent(lines.join("\n"));
-        window.open(url, "_blank", "noopener");
+        window.location.href = "../trip.html";
       });
     }
 
