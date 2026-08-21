@@ -1210,7 +1210,20 @@ body.is-rtl .eyebrow {
 
 .lead-status {
   font-size: 13px;
-  opacity: 0.8;
+  opacity: 0.9;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.lead-status.success {
+  color: #ead39f;
+  opacity: 1;
+  font-weight: 600;
+}
+
+.lead-status.error {
+  color: #ff9999;
+  opacity: 1;
+  font-weight: 600;
 }
 
 .lead-form button[type="submit"] {

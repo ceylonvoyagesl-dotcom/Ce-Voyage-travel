@@ -259,67 +259,81 @@
     window.addEventListener("load", initMap);
   }
 
-  // ---------- Lead form → WhatsApp ----------
+  // ---------- Lead form → Direct Supabase Submit ----------
   const leadForm = document.getElementById("leadForm");
   if (leadForm) {
-    leadForm.addEventListener("submit", (e) => {
+    leadForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const status = document.getElementById("leadStatus");
+      const submitBtn = leadForm.querySelector('button[type="submit"]');
+
+      if (!leadForm.reportValidity()) return;
+
       const data = new FormData(leadForm);
-      const name = data.get("name") || "";
-      const email = data.get("email") || "";
-      const phone = data.get("phone") || "";
-      const travelDate = data.get("travelDate") || "";
-      const travellers = data.get("travellers") || "";
-      const interest = data.get("interest") || "";
-      const message = data.get("message") || "";
+      const name = String(data.get("name") || "").trim();
+      const email = String(data.get("email") || "").trim();
+      const phone = String(data.get("phone") || "").trim();
+      const travelDate = String(data.get("travelDate") || "").trim();
+      const travellers = String(data.get("travellers") || "").trim();
+      const interest = String(data.get("interest") || "").trim();
+      const message = String(data.get("message") || "").trim();
+
+      if (!name || (!email && !phone)) {
+        if (status) {
+          status.textContent = t("fillRequiredFields", "Please provide your name and contact details.");
+          status.classList.remove("success");
+          status.classList.add("error");
+        }
+        return;
+      }
+
+      if (!window.CeVoyageBackend || !window.CeVoyageBackend.configured) {
+        if (status) {
+          status.textContent = t("serviceUnavailable", "Form submission is temporarily unavailable. Please try again later.");
+          status.classList.remove("success");
+          status.classList.add("error");
+        }
+        return;
+      }
 
       const inquiry = {
         inquiry_type: "travel_request",
-        full_name: String(name).trim(),
-        email: String(email).trim(),
-        phone: String(phone).trim(),
-        travel_date: String(travelDate).trim(),
-        travellers: String(travellers).trim(),
-        interest: String(interest).trim(),
-        message: String(message).trim()
+        full_name: name,
+        email: email,
+        phone: phone,
+        contact: email || phone,
+        travel_date: travelDate,
+        travellers: travellers,
+        interest: interest,
+        message: message
       };
 
-      if (window.CeVoyageBackend) {
-        window.CeVoyageBackend.saveInquiry(inquiry).then((result) => {
-          if (result.stored) {
-            const status = document.getElementById("leadStatus");
-            if (status) status.textContent = t("requestSaved", "Request saved. Continue in WhatsApp...");
-          }
-        }).catch((error) => {
-          console.error(error);
-          const status = document.getElementById("leadStatus");
-          if (status) status.textContent = t("saveFailedWaOpen", "Online save failed, but you can still send it on WhatsApp.");
-        });
-      }
-
-      const text = [
-        "🌍 *Ce Voyage — Demande de voyage*",
-        `👤 Nom: ${name}`,
-        `📧 Email: ${email}`,
-        `📱 Téléphone: ${phone}`,
-        travelDate ? `📅 Date: ${travelDate}` : null,
-        travellers ? `👥 Voyageurs: ${travellers}` : null,
-        interest ? `✨ Intérêt: ${interest}` : null,
-        "",
-        message
-      ]
-        .filter(Boolean)
-        .join("\n");
-
-      const wa = cfg.whatsappFrance || "33744284269";
-      const url = `https://wa.me/${wa.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
-      window.open(url, "_blank", "noopener");
-
-      const status = document.getElementById("leadStatus");
+      if (submitBtn) submitBtn.disabled = true;
       if (status) {
-        status.textContent = t("openingWhatsApp", "Opening WhatsApp...");
+        status.textContent = t("sending", "Sending request...");
+        status.classList.remove("error", "success");
       }
-      showToast(t("waToast", "WhatsApp is opening with your request"));
+
+      try {
+        await window.CeVoyageBackend.saveInquiry(inquiry);
+        if (status) {
+          status.textContent = t("requestSuccess", "Thank you! Your travel request has been submitted. We will contact you shortly.");
+          status.classList.add("success");
+          status.classList.remove("error");
+        }
+        showToast(t("requestSubmittedToast", "Travel request submitted successfully!"));
+        leadForm.reset();
+      } catch (error) {
+        console.error("Travel request submission failed:", error);
+        if (status) {
+          status.textContent = t("saveFailed", "We couldn't submit your request right now. Please try again.");
+          status.classList.add("error");
+          status.classList.remove("success");
+        }
+        showToast(t("requestFailedToast", "Could not submit request. Please try again."));
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
     });
   }
 

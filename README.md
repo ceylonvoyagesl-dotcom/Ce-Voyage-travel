@@ -92,7 +92,7 @@ Language preference is saved in `localStorage` (`cevoyage-lang`).
 
 ## Supabase backend
 
-Customer travel requests, tour requests, trip plans, and newsletter subscriptions can be stored in Supabase while keeping the existing WhatsApp flow. See [`SUPABASE-SETUP.md`](SUPABASE-SETUP.md) for the SQL and configuration steps.
+Customer travel requests, tour requests, trip plans, and newsletter subscriptions are stored directly in Supabase without requiring WhatsApp redirection. See [`SUPABASE-SETUP.md`](SUPABASE-SETUP.md) for the SQL and configuration steps.
 
 ## Host on GitHub Pages
 
