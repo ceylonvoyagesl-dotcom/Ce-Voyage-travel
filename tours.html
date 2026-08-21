@@ -280,6 +280,8 @@
   <span>WA</span>
   <div><small>WhatsApp France</small><strong>+33 7 44 28 42 69</strong></div>
 </a>
+<script src="config.js"></script>
+<script src="supabase.js"></script>
 <script src="places-data.js"></script>
 <script>
 (function(){
@@ -399,9 +401,27 @@
         "👥 Travellers: " + ((document.getElementById("fPax") || {}).value || "-"),
         "🏨 Hotel level: " + ((document.getElementById("fHotel") || {}).value || "-")
       ];
-      var notes = (document.getElementById("fNotes") || {}).value;
+      var dates = (document.getElementById("fDates") || {}).value || "";
+      var pax = (document.getElementById("fPax") || {}).value || "";
+      var hotel = (document.getElementById("fHotel") || {}).value || "";
+      var notes = (document.getElementById("fNotes") || {}).value || "";
       if (notes) lines.push("📝 Notes: " + notes);
       lines.push("", "Please send me a detailed offer. Thank you!");
+
+      if (window.CeVoyageBackend) {
+        window.CeVoyageBackend.saveInquiry({
+          inquiry_type: "tour_request",
+          full_name: name.trim(),
+          contact: contact.trim(),
+          travel_date: dates.trim(),
+          travellers: pax,
+          hotel_level: hotel,
+          message: notes.trim()
+        }).catch(function (error) {
+          console.error("Tour request could not be stored:", error);
+        });
+      }
+
       var phone = "33744284269";
       var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(lines.join("\n"));
       window.open(url, "_blank", "noopener");

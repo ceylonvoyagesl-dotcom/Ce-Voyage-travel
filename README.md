@@ -90,6 +90,10 @@ Contacts: WhatsApp FR +33 7 44 28 42 69 · SL +94 77 66 55 493 · ceylonvoyage.s
 
 Language preference is saved in `localStorage` (`cevoyage-lang`).
 
+## Supabase backend
+
+Customer travel requests, tour requests, trip plans, and newsletter subscriptions can be stored in Supabase while keeping the existing WhatsApp flow. See [`SUPABASE-SETUP.md`](SUPABASE-SETUP.md) for the SQL and configuration steps.
+
 ## Host on GitHub Pages
 
 1. Create a **public** GitHub repository (e.g. `ce-voyage-website`).

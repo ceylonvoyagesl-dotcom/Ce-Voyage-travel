@@ -273,6 +273,30 @@
       const interest = data.get("interest") || "";
       const message = data.get("message") || "";
 
+      const inquiry = {
+        inquiry_type: "travel_request",
+        full_name: String(name).trim(),
+        email: String(email).trim(),
+        phone: String(phone).trim(),
+        travel_date: String(travelDate).trim(),
+        travellers: String(travellers).trim(),
+        interest: String(interest).trim(),
+        message: String(message).trim()
+      };
+
+      if (window.CeVoyageBackend) {
+        window.CeVoyageBackend.saveInquiry(inquiry).then((result) => {
+          if (result.stored) {
+            const status = document.getElementById("leadStatus");
+            if (status) status.textContent = t("requestSaved", "Request saved. Continue in WhatsApp...");
+          }
+        }).catch((error) => {
+          console.error(error);
+          const status = document.getElementById("leadStatus");
+          if (status) status.textContent = t("saveFailedWaOpen", "Online save failed, but you can still send it on WhatsApp.");
+        });
+      }
+
       const text = [
         "🌍 *Ce Voyage — Demande de voyage*",
         `👤 Nom: ${name}`,
@@ -299,17 +323,38 @@
     });
   }
 
-  // ---------- Newsletter (demo) ----------
+  // ---------- Newsletter ----------
   const newsletterForm = document.getElementById("newsletterForm");
   if (newsletterForm) {
-    newsletterForm.addEventListener("submit", (e) => {
+    newsletterForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const msg = document.getElementById("formMessage");
-      if (msg) {
-        msg.textContent = t("thanksSubscribe", "Thank you! We'll send you inspiration soon.");
+      const input = newsletterForm.querySelector('input[type="email"]');
+      const button = newsletterForm.querySelector('button[type="submit"]');
+      const email = input ? input.value.trim() : "";
+
+      if (!newsletterForm.reportValidity() || !email) return;
+      if (!window.CeVoyageBackend || !window.CeVoyageBackend.configured) {
+        if (msg) msg.textContent = t("serviceUnavailable", "Subscriptions are temporarily unavailable. Please try again later.");
+        return;
       }
-      newsletterForm.reset();
-      showToast(t("subSaved", "Subscription saved"));
+
+      if (button) button.disabled = true;
+      if (msg) msg.textContent = t("saving", "Saving...");
+      try {
+        await window.CeVoyageBackend.subscribe(email);
+        if (msg) msg.textContent = t("thanksSubscribe", "Thank you! We'll send you inspiration soon.");
+        newsletterForm.reset();
+        showToast(t("subSaved", "Subscription saved"));
+      } catch (error) {
+        console.error(error);
+        const duplicate = String(error.message || "").indexOf("23505") !== -1;
+        if (msg) msg.textContent = duplicate
+          ? t("alreadySubscribed", "This email is already subscribed.")
+          : t("saveFailed", "We couldn't save this right now. Please try again.");
+      } finally {
+        if (button) button.disabled = false;
+      }
     });
   }
 
