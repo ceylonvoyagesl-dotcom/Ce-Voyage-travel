@@ -92,7 +92,19 @@ Language preference is saved in `localStorage` (`cevoyage-lang`).
 
 ## Supabase backend
 
-Customer travel requests, tour requests, trip plans, and newsletter subscriptions are stored directly in Supabase without requiring WhatsApp redirection. See [`SUPABASE-SETUP.md`](SUPABASE-SETUP.md) for the SQL and configuration steps.
+Customer travel requests, tour requests, trip plans, and newsletter subscriptions are stored directly in Supabase without requiring WhatsApp redirection. See [`SUPABASE-SETUP.md`](SUPABASE-SETUP.md) for the public website setup.
+
+## Operations dashboard
+
+The Next.js + Tailwind CSS operations workspace lives in [`admin/`](admin/README.md). Phase 1 provides Supabase Auth, multi-role navigation, an operations overview, inquiry pipeline, booking management, CSV export, and print-ready quotations. The complete business schema and Row Level Security policies are in [`supabase/admin-schema.sql`](supabase/admin-schema.sql).
+
+```bash
+cd admin
+npm install
+npm run dev
+```
+
+Without Supabase environment variables the app opens a safe, local demo workspace from the login screen.
 
 ## Host on GitHub Pages
 

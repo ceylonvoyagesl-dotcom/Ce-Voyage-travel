@@ -38,6 +38,16 @@ After deployment, submit test entries on each form and verify:
 - **Table Editor → newsletter_subscribers**
 - Inspect network requests to ensure `201 Created` responses from `/rest/v1/...`
 
-## Future admin and mobile apps
+## 4. Operations dashboard
 
-Do not weaken the public policies to allow anonymous reads. The traveller, driver, guide, and admin apps should use Supabase Auth. Add authenticated role-based read/update policies when those apps and their user roles are designed. Keep `service_role` usage on a trusted server or Edge Function only.
+The authenticated Next.js dashboard is in [`admin/`](admin/README.md). After the public schema above, run [`supabase/admin-schema.sql`](supabase/admin-schema.sql) to install its business tables, role profiles, helper functions, audit trail and Row Level Security policies.
+
+Create internal team members through **Authentication → Users**. The profile trigger safely assigns new accounts the least-privileged `dispatcher` role. Bootstrap the first trusted owner in SQL, then manage roles from an authenticated admin workflow:
+
+```sql
+update public.profiles
+set role = 'super_admin'
+where email = 'owner@ce-voyage.com';
+```
+
+Configure `admin/.env.local` from `admin/.env.example` with only the project URL and public publishable key. Never weaken public inquiry policies or expose a `service_role` key in the website or dashboard.
