@@ -10,6 +10,14 @@ window.CE_VOYAGE = {
   addressFrance: "8 rue Estienne d’Orves, 93170 Bagnolet, France",
   website: "https://www.ce-voyage.com",
   defaultLang: "en",
+
+  // Supabase public browser credentials only. Run supabase/schema.sql first.
+  // Never place a service_role/secret key in this file.
+  supabase: {
+    url: "https://xlejfklsatjqhsbwmalf.supabase.co",
+    anonKey: "sb_publishable_LVTjEPcybssazrEoiZDwuA_N23AKUro"
+  },
+
   mapCenter: [7.8731, 80.7718],
   mapZoom: 7,
   destinations: [

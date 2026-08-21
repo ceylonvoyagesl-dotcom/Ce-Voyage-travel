@@ -1490,9 +1490,9 @@ section#contact, .contact-section{
 <h2 data-i18n="newsletterTitle">Let Sri Lanka inspire your next journey.</h2>
 <p data-i18n="newsletterText">Receive destination stories, seasonal travel ideas and new hidden-place guides.</p>
 <form id="newsletterForm">
-<input data-i18n-placeholder="emailPlaceholder" placeholder="Your email address" required="" type="email">
+<input autocomplete="email" data-i18n-placeholder="emailPlaceholder" name="email" placeholder="Your email address" required="" type="email"/>
 <button data-i18n="subscribe" type="submit">Subscribe</button>
-</input></form>
+</form>
 <div class="form-message" id="formMessage"></div>
 </div>
 </section>
@@ -1548,6 +1548,7 @@ section#contact, .contact-section{
 <div class="toast" id="toast"></div>
 <script crossorigin="" src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="config.js"></script>
+<script src="supabase.js"></script>
 <script src="content.js"></script>
 <script src="app.js"></script>
 <script src="live.js"></script>

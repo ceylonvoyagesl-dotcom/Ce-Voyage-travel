@@ -144,6 +144,8 @@
   <div><small>WhatsApp France</small><strong>+33 7 44 28 42 69</strong></div>
 </a>
 <div class="toast" id="toast"></div>
+<script src="config.js"></script>
+<script src="supabase.js"></script>
 <script src="places-data.js"></script>
 <script>
 (function () {
@@ -242,6 +244,17 @@
       });
     }
     lines.push("", "Please help me plan this journey.");
+
+    if (window.CeVoyageBackend) {
+      window.CeVoyageBackend.saveInquiry({
+        inquiry_type: "trip_plan",
+        message: "Please help me plan this journey.",
+        trip_items: cart
+      }).catch(function (error) {
+        console.error("Trip plan could not be stored:", error);
+      });
+    }
+
     var url = "https://wa.me/33744284269?text=" + encodeURIComponent(lines.join("\n"));
     window.open(url, "_blank", "noopener");
   }
